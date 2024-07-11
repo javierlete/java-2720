@@ -14,11 +14,10 @@ public class Local {
 	private ArrayList<Persona> visitantes = new ArrayList<>();
 
 	public Local(Long id, String nombre, Persona propietario, Integer capacidad) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.propietario = propietario;
-		this.capacidad = capacidad;
+		setId(id);
+		setNombre(nombre);
+		setPropietario(propietario);
+		setCapacidad(capacidad);
 	}
 
 	public Long getId() {
