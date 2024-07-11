@@ -14,3 +14,4 @@
 ## Ejercicios
 
 - Ejercicios básicos: https://puntocomnoesunlenguaje.blogspot.com/p/ejercicios.html
+- Ejercicios POO: https://puntocomnoesunlenguaje.blogspot.com/p/blog-page.html
