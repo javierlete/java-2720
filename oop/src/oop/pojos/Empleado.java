@@ -1,8 +1,9 @@
 package oop.pojos;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Empleado extends Persona {
+public abstract class Empleado extends Persona {
 	private String dni;
 	private String nss;
 
@@ -48,6 +49,8 @@ public class Empleado extends Persona {
 		
 		this.nss = nss;
 	}
+	
+	public abstract BigDecimal getSueldoMensual();
 
 	@Override
 	public int hashCode() {
