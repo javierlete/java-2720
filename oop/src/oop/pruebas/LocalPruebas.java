@@ -24,5 +24,7 @@ public class LocalPruebas {
 		for(Persona visitante: local.getVisitantes()) {
 			System.out.println(visitante);
 		}
+		
+		System.out.println(Local.getCapacidadPorDefecto());
 	}
 }

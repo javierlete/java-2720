@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Local {
+	private static final Integer CAPACIDAD_POR_DEFECTO = 100;
+
 	private Long id;
 	private String nombre;
 	private Persona propietario;
@@ -18,6 +20,14 @@ public class Local {
 		setNombre(nombre);
 		setPropietario(propietario);
 		setCapacidad(capacidad);
+	}
+	
+	public Local(Long id, String nombre, Persona propietario) {
+		this(id, nombre, propietario, CAPACIDAD_POR_DEFECTO);
+	}
+
+	public static Integer getCapacidadPorDefecto() {
+		return CAPACIDAD_POR_DEFECTO;
 	}
 
 	public Long getId() {
