@@ -1,6 +1,8 @@
 package oop.biblioteca;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class Consola {
 	private static final Scanner sc = new Scanner(System.in);
@@ -42,4 +44,58 @@ public class Consola {
 
 		return numero;
 	}
+	
+	
+
+	public static <T> T leer(String mensaje, Function<String, T> funcion) {
+		boolean hayError = true;
+		T dato = null;
+		
+		do {
+			try {
+				String texto = leerString(mensaje);
+				dato = funcion.apply(texto);
+
+				hayError = false;
+			} catch (Exception e) {
+				System.out.println("El texto proporcionado no se puede convertir");
+			}
+		} while (hayError);
+
+		return dato;
+	}
+	
+	public static BigDecimal leerBigDecimal(String mensaje) {
+		return leer(mensaje, texto -> {
+			return new BigDecimal(texto); 
+		});
+	}
+	
+	public static Long leerLong(String mensaje) {
+		return leer(mensaje, texto -> Long.parseLong(texto));
+		
+		// INTERFACE FUNCIONAL
+//		public interface Function<T, R> {
+//			R apply(T t);
+//		}
+		
+		// USO DE CLASE ANÓNIMA
+//		return leer(mensaje, new Convertible<Long>() {
+//			@Override
+//			public Long convertir(String texto) {
+//				return Long.parseLong(texto);
+//			}
+//		});
+	}
+	
+	// CLASE INTERNA
+//	private static class ConversionLong implements Convertible<Long> {
+//
+//		@Override
+//		public Long convertir(String texto) {
+//			return Long.parseLong(texto);
+//		}
+//
+//	}
+
 }
