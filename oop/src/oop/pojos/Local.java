@@ -12,7 +12,7 @@ public class Local {
 	private String nombre;
 	private Persona propietario;
 	private Integer capacidad;
-	
+
 	private ArrayList<Persona> visitantes = new ArrayList<>();
 
 	public Local(Long id, String nombre, Persona propietario, Integer capacidad) {
@@ -21,7 +21,7 @@ public class Local {
 		setPropietario(propietario);
 		setCapacidad(capacidad);
 	}
-	
+
 	public Local(Long id, String nombre, Persona propietario) {
 		this(id, nombre, propietario, CAPACIDAD_POR_DEFECTO);
 	}
@@ -65,20 +65,35 @@ public class Local {
 	public List<Persona> getVisitantes() {
 		return Collections.unmodifiableList(visitantes);
 	}
-	
+
+	public Iterable<Persona> buscarPersona(String nombre) {
+		return visitantes.stream().filter(p -> p.getNombre().contains(nombre)).toList();
+	}
+
+	public Iterable<String> obtenerNombres() {
+		return visitantes.stream().map(p -> p.getNombre() + " " + p.getApellidos()).toList();
+	}
+
+	public String obtenerNombresCsv() {
+		String resultado = visitantes.stream().map(p -> p.getNombre() + " " + p.getApellidos()).reduce("",
+				(nombres, nombre) -> nombres += nombre + ",");
+
+		return resultado.substring(0, resultado.length() - 1);
+	}
+
 	// MÉTODOS DE INSTANCIA
 	public void entrar(Persona persona) {
-		if(persona == null) {
+		if (persona == null) {
 			throw new IllegalArgumentException("No se admiten visitantes nulos");
 		}
-		
-		if(visitantes.size() >= capacidad) {
+
+		if (visitantes.size() >= capacidad) {
 			throw new RuntimeException("No cabe nadie más");
 		}
-		
+
 		visitantes.add(persona);
 	}
-	
+
 	public void salir(Persona persona) {
 		visitantes.remove(persona);
 	}
