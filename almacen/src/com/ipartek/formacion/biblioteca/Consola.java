@@ -6,6 +6,9 @@ import java.util.Scanner;
 import java.util.function.Function;
 
 public class Consola {
+	public static final boolean OPCIONAL = true;
+	public static final boolean OBLIGATORIO = !OPCIONAL;
+
 	private static final Scanner sc = new Scanner(System.in);
 
 	public static void pl() {
@@ -15,7 +18,7 @@ public class Consola {
 	public static void pl(Object mensaje) {
 		System.out.println(mensaje);
 	}
-	
+
 	public static void p(Object mensaje) {
 		System.out.print(mensaje);
 	}
@@ -23,16 +26,26 @@ public class Consola {
 	public static void pfl(String formato, Object... args) {
 		System.out.printf(formato + "\n", args);
 	}
-	
+
 	public static String leerString(String mensaje) {
 		p(mensaje + ": ");
 		return sc.nextLine();
 	}
 
+	public static String leerString(String mensaje, boolean opcional) {
+		return leer(String.format("%s (%s)", mensaje, opcional ? "opcional" : "obligatorio"), texto -> {
+			if (texto.isBlank() && !opcional) {
+				throw new IllegalArgumentException("Es obligatorio");
+			}
+
+			return texto;
+		});
+	}
+
 	public static int leerInt(String mensaje) {
 		boolean hayError = true;
 		int numero = 0;
-		
+
 		do {
 			try {
 				numero = Integer.parseInt(leerString(mensaje));
@@ -45,13 +58,61 @@ public class Consola {
 
 		return numero;
 	}
-	
-	
+
+	public static Integer leerInt(String mensaje, boolean opcional, int minimo) {
+		return leer(String.format("%s (%s) (minimo=%s)", mensaje, opcional ? "opcional" : "obligatorio", minimo),
+				texto -> {
+					if (opcional && texto.isBlank()) {
+						return null;
+					}
+
+					int i = Integer.parseInt(texto);
+
+					if (i < minimo) {
+						throw new IllegalArgumentException("Está por debajo del mínimo");
+					}
+
+					return i;
+				});
+	}
+
+	public static BigDecimal leerBigDecimal(String mensaje, boolean opcional, BigDecimal minimo) {
+		return leer(String.format("%s (%s) (minimo=%s)", mensaje, opcional ? "opcional" : "obligatorio", minimo),
+				texto -> {
+					if (opcional && texto.isBlank()) {
+						return null;
+					}
+
+					BigDecimal bd = new BigDecimal(texto);
+
+					if (bd.compareTo(minimo) < 0) {
+						throw new IllegalArgumentException("Está por debajo del mínimo");
+					}
+
+					return bd;
+				});
+	}
+
+	public static LocalDate leerLocalDate(String mensaje, boolean opcional, LocalDate minimo) {
+		return leer(String.format("%s (opcional) (minimo=%s)", mensaje, minimo), texto -> {
+			if (opcional && texto.isBlank()) {
+				return null;
+			}
+
+			LocalDate ld = LocalDate.parse(texto);
+
+			if (ld.isBefore(minimo)) {
+				throw new IllegalArgumentException("Está por debajo del mínimo");
+			}
+
+			return ld;
+		});
+	}
 
 	public static <T> T leer(String mensaje, Function<String, T> funcion) {
 		boolean hayError = true;
 		T dato = null;
-		
+
 		do {
 			try {
 				String texto = leerString(mensaje);
@@ -65,27 +126,27 @@ public class Consola {
 
 		return dato;
 	}
-	
+
 	public static BigDecimal leerBigDecimal(String mensaje) {
 		return leer(mensaje, texto -> {
-			return new BigDecimal(texto); 
+			return new BigDecimal(texto);
 		});
 	}
-	
+
 	public static LocalDate leerLocalDate(String mensaje) {
 		return leer(mensaje + " (AAAA-MM-DD)", texto -> {
 			return LocalDate.parse(texto);
 		});
 	}
-	
+
 	public static Long leerLong(String mensaje) {
 		return leer(mensaje, texto -> Long.parseLong(texto));
-		
+
 		// INTERFACE FUNCIONAL
 //		public interface Function<T, R> {
 //			R apply(T t);
 //		}
-		
+
 		// USO DE CLASE ANÓNIMA
 //		return leer(mensaje, new Convertible<Long>() {
 //			@Override
@@ -94,7 +155,7 @@ public class Consola {
 //			}
 //		});
 	}
-	
+
 	// CLASE INTERNA
 //	private static class ConversionLong implements Convertible<Long> {
 //

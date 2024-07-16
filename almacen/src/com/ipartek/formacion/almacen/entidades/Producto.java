@@ -14,12 +14,11 @@ public class Producto {
 
 	// Generate constructor using fields...
 	public Producto(Long id, String nombre, BigDecimal precio, Integer stock, LocalDate fechaCaducidad) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.stock = stock;
-		this.precio = precio;
-		this.fechaCaducidad = fechaCaducidad;
+		setId(id);
+		setNombre(nombre);
+		setPrecio(precio);
+		setStock(stock);
+		setFechaCaducidad(fechaCaducidad);
 	}
 	
 	// Generate getters and setters...
@@ -36,6 +35,10 @@ public class Producto {
 	}
 
 	public void setNombre(String nombre) {
+		if(nombre == null || nombre.isBlank()) {
+			throw new IllegalArgumentException("El nombre no puede estar vacío");
+		}
+		
 		this.nombre = nombre;
 	}
 
@@ -44,6 +47,10 @@ public class Producto {
 	}
 
 	public void setStock(Integer stock) {
+		if(stock != null && stock < 0) {
+			throw new IllegalArgumentException("No se admiten stocks negativos");
+		}
+		
 		this.stock = stock;
 	}
 
@@ -52,6 +59,10 @@ public class Producto {
 	}
 
 	public void setPrecio(BigDecimal precio) {
+		if(precio == null || precio.compareTo(BigDecimal.ZERO) < 0) {
+			throw new IllegalArgumentException("No se admiten precios menores que cero o inexistentes");
+		}
+		
 		this.precio = precio;
 	}
 
@@ -60,6 +71,10 @@ public class Producto {
 	}
 
 	public void setFechaCaducidad(LocalDate fechaCaducidad) {
+		if(fechaCaducidad != null && fechaCaducidad.isBefore(LocalDate.now())) {
+			throw new IllegalArgumentException("La fecha de caducidad no puede ser anterior a la fecha actual");
+		}
+
 		this.fechaCaducidad = fechaCaducidad;
 	}
 

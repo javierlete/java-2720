@@ -82,10 +82,10 @@ public class PresentacionConsola {
 	}
 
 	private static Producto leerProducto() {
-		String nombre = leerString("Nombre");
-		BigDecimal precio = leerBigDecimal("Precio");
-		Integer stock = leerInt("Stock");
-		LocalDate fechaCaducidad = leerLocalDate("Fecha de caducidad");
+		String nombre = leerString("Nombre", OBLIGATORIO);
+		BigDecimal precio = leerBigDecimal("Precio", OBLIGATORIO, BigDecimal.ZERO);
+		Integer stock = leerInt("Stock", OPCIONAL, 0);
+		LocalDate fechaCaducidad = leerLocalDate("Fecha de caducidad", OPCIONAL, LocalDate.now());
 		
 		return new Producto(null, nombre, precio, stock, fechaCaducidad);
 	}

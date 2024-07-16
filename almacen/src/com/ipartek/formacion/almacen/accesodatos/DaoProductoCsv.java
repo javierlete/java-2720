@@ -100,8 +100,8 @@ public class DaoProductoCsv extends DaoProductoTreeMap implements DaoProducto {
 
 				long id = Long.parseLong(partes[0]);
 				String nombre = partes[1];
-				int stock = Integer.parseInt(partes[3]);
 				BigDecimal precio = new BigDecimal(partes[2]);
+				Integer stock = "null".equals(partes[3]) ? null : Integer.parseInt(partes[3]);
 				LocalDate fechaCaducidad = "null".equals(partes[4]) ? null : LocalDate.parse(partes[4]);
 
 				p = new Producto(id, nombre, precio, stock, fechaCaducidad);
