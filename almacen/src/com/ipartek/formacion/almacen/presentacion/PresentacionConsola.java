@@ -87,7 +87,7 @@ public class PresentacionConsola {
 		Integer stock = leerInt("Stock");
 		LocalDate fechaCaducidad = leerLocalDate("Fecha de caducidad");
 		
-		return new Producto(null, nombre, stock, precio, fechaCaducidad);
+		return new Producto(null, nombre, precio, stock, fechaCaducidad);
 	}
 
 	private static void modificar() {

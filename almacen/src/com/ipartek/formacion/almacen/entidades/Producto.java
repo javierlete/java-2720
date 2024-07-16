@@ -13,7 +13,7 @@ public class Producto {
 	private LocalDate fechaCaducidad;
 
 	// Generate constructor using fields...
-	public Producto(Long id, String nombre, Integer stock, BigDecimal precio, LocalDate fechaCaducidad) {
+	public Producto(Long id, String nombre, BigDecimal precio, Integer stock, LocalDate fechaCaducidad) {
 		super();
 		this.id = id;
 		this.nombre = nombre;

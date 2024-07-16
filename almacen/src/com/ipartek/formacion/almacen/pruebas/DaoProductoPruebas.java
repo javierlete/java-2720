@@ -10,12 +10,12 @@ public class DaoProductoPruebas {
 	public static void main(String[] args) {
 		DaoProducto dao = new DaoProductoCsv("productos.csv");
 
-		dao.insertar(new Producto(null, "Producto 1", 15, new BigDecimal("1234.56"), null));
-		dao.insertar(new Producto(null, "Producto 2", 26, new BigDecimal("234.56"), null));
-		dao.insertar(new Producto(null, "Producto 3", 37, new BigDecimal("34.56"), null));
-		dao.insertar(new Producto(null, "Producto 4", 48, new BigDecimal("4.56"), null));
+		dao.insertar(new Producto(null, "Producto 1", new BigDecimal("1234.56"), 15, null));
+		dao.insertar(new Producto(null, "Producto 2", new BigDecimal("234.56"), 26, null));
+		dao.insertar(new Producto(null, "Producto 3", new BigDecimal("34.56"), 37, null));
+		dao.insertar(new Producto(null, "Producto 4", new BigDecimal("4.56"), 48, null));
 
-		dao.modificar(new Producto(3L, "Modificado", 32, new BigDecimal("3456.56"), null));
+		dao.modificar(new Producto(3L, "Modificado", new BigDecimal("3456.56"), 32, null));
 
 		dao.borrar(2L);
 

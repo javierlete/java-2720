@@ -104,7 +104,7 @@ public class DaoProductoCsv extends DaoProductoTreeMap implements DaoProducto {
 				BigDecimal precio = new BigDecimal(partes[2]);
 				LocalDate fechaCaducidad = "null".equals(partes[4]) ? null : LocalDate.parse(partes[4]);
 
-				p = new Producto(id, nombre, stock, precio, fechaCaducidad);
+				p = new Producto(id, nombre, precio, stock, fechaCaducidad);
 
 				super.modificar(p);
 			}
