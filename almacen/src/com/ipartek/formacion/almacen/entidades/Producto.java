@@ -1,10 +1,14 @@
 package com.ipartek.formacion.almacen.entidades;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Producto {
+public class Producto implements Serializable {
+
+	private static final long serialVersionUID = -5259817006588696574L;
+
 	// VARIABLES DE INSTANCIA PRIVADAS
 	private Long id;
 	private String nombre;

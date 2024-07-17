@@ -13,7 +13,7 @@ import java.util.Scanner;
 import com.ipartek.formacion.almacen.entidades.Producto;
 
 public class DaoProductoCsv extends DaoProductoTreeMap implements DaoProducto {
-	private String path;
+	protected String path;
 
 	public DaoProductoCsv(String path) {
 		this.path = path;
@@ -62,11 +62,11 @@ public class DaoProductoCsv extends DaoProductoTreeMap implements DaoProducto {
 
 	@Override
 	public Iterable<Producto> productosPorPrecio(BigDecimal minimo, BigDecimal maximo) {
-		// TODO Auto-generated method stub
+		leer();
 		return super.productosPorPrecio(minimo, maximo);
 	}
 
-	private void guardar() {
+	protected void guardar() {
 		try (PrintWriter pw = new PrintWriter(new FileWriter(path))) {
 			for (Producto p : super.obtenerTodos()) {
 				pw.printf("%s;%s;%s;%s;%s\n", p.getId(), p.getNombre(), p.getPrecio(), p.getStock(),
@@ -77,7 +77,7 @@ public class DaoProductoCsv extends DaoProductoTreeMap implements DaoProducto {
 		}
 	}
 
-	private void leer() {
+	protected void leer() {
 		File f = new File(path);
 		
 		if(!f.exists()) {

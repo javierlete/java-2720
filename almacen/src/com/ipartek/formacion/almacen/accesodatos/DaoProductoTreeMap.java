@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import com.ipartek.formacion.almacen.entidades.Producto;
 
 public class DaoProductoTreeMap implements DaoProducto {
-	private final TreeMap<Long, Producto> productos = new TreeMap<>();
+	protected TreeMap<Long, Producto> productos = new TreeMap<>();
 
 	@Override
 	public Iterable<Producto> obtenerTodos() {

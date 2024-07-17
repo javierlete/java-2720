@@ -3,12 +3,12 @@ package com.ipartek.formacion.almacen.pruebas;
 import java.math.BigDecimal;
 
 import com.ipartek.formacion.almacen.accesodatos.DaoProducto;
-import com.ipartek.formacion.almacen.accesodatos.DaoProductoCsv;
+import com.ipartek.formacion.almacen.accesodatos.DaoProductoSerializacion;
 import com.ipartek.formacion.almacen.entidades.Producto;
 
 public class DaoProductoPruebas {
 	public static void main(String[] args) {
-		DaoProducto dao = new DaoProductoCsv("productos.csv");
+		DaoProducto dao = new DaoProductoSerializacion("productos.dat"); // new DaoProductoCsv("productos.csv"); // new DaoProductoTreeMap(); // new DaoProductoArrayList();
 
 		dao.insertar(new Producto(null, "Producto 1", new BigDecimal("1234.56"), 15, null));
 		dao.insertar(new Producto(null, "Producto 2", new BigDecimal("234.56"), 26, null));
