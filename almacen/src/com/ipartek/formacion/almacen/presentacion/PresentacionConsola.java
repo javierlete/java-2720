@@ -6,13 +6,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.ipartek.formacion.almacen.accesodatos.DaoProducto;
-import com.ipartek.formacion.almacen.accesodatos.DaoProductoCsv;
+import com.ipartek.formacion.almacen.accesodatos.DaoProductoSqliteLambda;
 import com.ipartek.formacion.almacen.entidades.Producto;
 
 public class PresentacionConsola {
 	private static final int SALIR = 0;
 
-	private static final DaoProducto dao = new DaoProductoCsv("productos.csv");
+	private static final DaoProducto dao = new DaoProductoSqliteLambda("jdbc:sqlite:sql/productos.sqlite", null, null);
 	
 	public static void main(String[] args) {
 		int opcion;
