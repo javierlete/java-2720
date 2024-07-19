@@ -67,7 +67,7 @@ public class DaoProductoSqliteLambda extends DaoSql<Producto> implements DaoProd
 		});
 	}
 
-	private void ejecutarCambio(String sql, Codigo<PreparedStatement> lambda) {
+	private void ejecutarCambio(String sql, Codigo lambda) {
 		try (Connection con = obtenerConexion(); PreparedStatement pst = con.prepareStatement(sql);) {
 			lambda.ejecutar(pst);
 
@@ -77,20 +77,21 @@ public class DaoProductoSqliteLambda extends DaoSql<Producto> implements DaoProd
 		}
 	}
 
-	private Iterable<Producto> ejecutarConsulta(String sql, Codigo<PreparedStatement> lambda) {
+	private Iterable<Producto> ejecutarConsulta(String sql, Codigo lambda) {
 		try (Connection con = obtenerConexion(); PreparedStatement pst = con.prepareStatement(sql);) {
 			lambda.ejecutar(pst);
 
-			ResultSet rs = pst.executeQuery();
 			ArrayList<Producto> productos = new ArrayList<>();
 			Producto producto;
 
-			while (rs.next()) {
-				producto = filaAProducto(rs);
+			try (ResultSet rs = pst.executeQuery()) {
+				while (rs.next()) {
+					producto = filaAProducto(rs);
 
-				productos.add(producto);
+					productos.add(producto);
+				}
 			}
-
+			
 			return productos;
 
 		} catch (SQLException e) {
@@ -98,15 +99,15 @@ public class DaoProductoSqliteLambda extends DaoSql<Producto> implements DaoProd
 		}
 	}
 
-	private Producto ejecutarConsultaUno(String sql, Codigo<PreparedStatement> codigo) {
+	private Producto ejecutarConsultaUno(String sql, Codigo codigo) {
 		Iterable<Producto> productos = ejecutarConsulta(sql, codigo);
 
 		return productos.iterator().hasNext() ? productos.iterator().next() : null;
 	}
 
 	@FunctionalInterface
-	private interface Codigo<T> {
-		void ejecutar(T t) throws SQLException;
+	private interface Codigo {
+		void ejecutar(PreparedStatement pst) throws SQLException;
 	}
 
 	private Producto filaAProducto(ResultSet rs) throws SQLException {
@@ -124,7 +125,7 @@ public class DaoProductoSqliteLambda extends DaoSql<Producto> implements DaoProd
 		pst.setString(1, producto.getNombre());
 		pst.setBigDecimal(2, producto.getPrecio());
 		pst.setObject(3, producto.getStock());
-		pst.setObject(4,
+		pst.setDate(4,
 				producto.getFechaCaducidad() != null ? java.sql.Date.valueOf(producto.getFechaCaducidad()) : null);
 
 		if (producto.getId() != null) {

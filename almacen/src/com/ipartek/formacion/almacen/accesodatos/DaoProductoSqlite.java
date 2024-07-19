@@ -137,7 +137,7 @@ public class DaoProductoSqlite extends DaoSql<Producto> implements DaoProducto {
 		pst.setString(1, producto.getNombre());
 		pst.setBigDecimal(2, producto.getPrecio());
 		pst.setObject(3, producto.getStock());
-		pst.setObject(4,
+		pst.setDate(4,
 				producto.getFechaCaducidad() != null ? java.sql.Date.valueOf(producto.getFechaCaducidad()) : null);
 
 		if (producto.getId() != null) {
