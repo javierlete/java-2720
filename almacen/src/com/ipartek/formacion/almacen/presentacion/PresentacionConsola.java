@@ -6,13 +6,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.ipartek.formacion.almacen.accesodatos.DaoProducto;
-import com.ipartek.formacion.almacen.accesodatos.Fabrica;
+import com.ipartek.formacion.almacen.accesodatos.FabricaGenerica;
 import com.ipartek.formacion.almacen.entidades.Producto;
 
 public class PresentacionConsola {
 	private static final int SALIR = 0;
 
-	private static final DaoProducto dao = Fabrica.getDaoProducto();
+	private static final DaoProducto dao = FabricaGenerica.getDaoProducto();
 	
 	public static void main(String[] args) {
 		int opcion;
