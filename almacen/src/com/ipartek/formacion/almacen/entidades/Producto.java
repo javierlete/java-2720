@@ -15,14 +15,21 @@ public class Producto implements Serializable {
 	private Integer stock;
 	private BigDecimal precio;
 	private LocalDate fechaCaducidad;
+	
+	private Categoria categoria;
 
 	// Generate constructor using fields...
-	public Producto(Long id, String nombre, BigDecimal precio, Integer stock, LocalDate fechaCaducidad) {
+	public Producto(Long id, String nombre, BigDecimal precio, Integer stock, LocalDate fechaCaducidad, Categoria categoria) {
 		setId(id);
 		setNombre(nombre);
 		setPrecio(precio);
 		setStock(stock);
 		setFechaCaducidad(fechaCaducidad);
+		setCategoria(categoria);
+	}
+	
+	public Producto(Long id, String nombre, BigDecimal precio, Integer stock, LocalDate fechaCaducidad) {
+		this(id, nombre, precio, stock, fechaCaducidad, null);
 	}
 	
 	// Generate getters and setters...
@@ -80,6 +87,14 @@ public class Producto implements Serializable {
 		}
 
 		this.fechaCaducidad = fechaCaducidad;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	// Generate hashCode and equals...
