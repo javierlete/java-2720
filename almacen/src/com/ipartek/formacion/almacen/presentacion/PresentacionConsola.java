@@ -5,14 +5,17 @@ import static com.ipartek.formacion.biblioteca.Consola.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.ipartek.formacion.almacen.accesodatos.DaoCategoria;
 import com.ipartek.formacion.almacen.accesodatos.DaoProducto;
 import com.ipartek.formacion.almacen.accesodatos.FabricaGenerica;
+import com.ipartek.formacion.almacen.entidades.Categoria;
 import com.ipartek.formacion.almacen.entidades.Producto;
 
 public class PresentacionConsola {
 	private static final int SALIR = 0;
 
 	private static final DaoProducto dao = FabricaGenerica.getDaoProducto();
+	private static final DaoCategoria daoCategoria = FabricaGenerica.getDaoCategoria();
 	
 	public static void main(String[] args) {
 		int opcion;
@@ -31,6 +34,7 @@ public class PresentacionConsola {
 				3. Añadir
 				4. Modificar
 				5. Borrar
+				6. Buscar por categoría
 
 				0. Salir
 						""");
@@ -49,6 +53,7 @@ public class PresentacionConsola {
 		case 3 -> insertar();
 		case 4 -> modificar();
 		case 5 -> borrar();
+		case 6 -> categoria();
 		default -> pl("No reconozco esa opción");
 		}
 	}
@@ -87,7 +92,18 @@ public class PresentacionConsola {
 		Integer stock = leerInt("Stock", OPCIONAL, 0);
 		LocalDate fechaCaducidad = leerLocalDate("Fecha de caducidad", OPCIONAL, LocalDate.now());
 		
-		return new Producto(null, nombre, precio, stock, fechaCaducidad);
+		listadoCategorias();
+		
+		Long idCategoria = leerLong("Id categoría");
+		Categoria categoria = new Categoria(idCategoria, null, null);
+		
+		return new Producto(null, nombre, precio, stock, fechaCaducidad, categoria);
+	}
+
+	private static void listadoCategorias() {
+		for(Categoria c: daoCategoria.obtenerTodos()) {
+			System.out.println(c);
+		}
 	}
 
 	private static void modificar() {
@@ -104,5 +120,17 @@ public class PresentacionConsola {
 		Long id = leerLong("Id");
 		
 		dao.borrar(id);
+	}
+
+	private static void categoria() {
+		Long id = leerLong("Id categoría");
+		
+		Categoria categoria = daoCategoria.obtenerPorId(id);
+		
+		System.out.println(categoria);
+		
+		for(Producto p: categoria.getProductos()) {
+			System.out.println(p);
+		}
 	}
 }

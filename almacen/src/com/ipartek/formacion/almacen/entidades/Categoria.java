@@ -50,7 +50,7 @@ public class Categoria {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(descripcion, id, nombre, productos);
+		return Objects.hash(descripcion, id, nombre);
 	}
 
 	@Override
@@ -63,13 +63,12 @@ public class Categoria {
 			return false;
 		Categoria other = (Categoria) obj;
 		return Objects.equals(descripcion, other.descripcion) && Objects.equals(id, other.id)
-				&& Objects.equals(nombre, other.nombre) && Objects.equals(productos, other.productos);
+				&& Objects.equals(nombre, other.nombre);
 	}
 
 	@Override
 	public String toString() {
-		return "Categoria [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", productos="
-				+ productos + "]";
+		return "Categoria [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
 	}
 
 }

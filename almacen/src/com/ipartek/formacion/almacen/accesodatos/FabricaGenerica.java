@@ -4,18 +4,23 @@ import java.util.Properties;
 
 public class FabricaGenerica {
 	private static DaoProducto daoProducto;
+	private static DaoCategoria daoCategoria;
 
 	static {
 		try {
 			Properties props = new Properties();
 			props.load(FabricaGenerica.class.getClassLoader().getResourceAsStream("almacengenerico.properties"));
 
-			String motor = props.getProperty("dao.producto.motor");
-			String url = props.getProperty("dao.producto.url");
-			String user = props.getProperty("dao.producto.user");
-			String pass = props.getProperty("dao.producto.pass");
+			String url = props.getProperty("dao.url");
+			String user = props.getProperty("dao.user");
+			String pass = props.getProperty("dao.pass");
 
-			daoProducto = (DaoProducto) Class.forName(motor).getConstructor(String.class, String.class, String.class).newInstance(url,
+			String motorProducto = props.getProperty("dao.producto.motor");
+			String motorCategoria = props.getProperty("dao.categoria.motor");
+
+			daoProducto = (DaoProducto) Class.forName(motorProducto).getConstructor(String.class, String.class, String.class).newInstance(url,
+					user, pass);
+			daoCategoria = (DaoCategoria) Class.forName(motorCategoria).getConstructor(String.class, String.class, String.class).newInstance(url,
 					user, pass);
 		} catch (Exception e) {
 			throw new AccesoDatosException("No se ha podido leer la configuración del acceso a datos", e);
@@ -24,5 +29,9 @@ public class FabricaGenerica {
 
 	public static DaoProducto getDaoProducto() {
 		return daoProducto;
+	}
+
+	public static DaoCategoria getDaoCategoria() {
+		return daoCategoria;
 	}
 }

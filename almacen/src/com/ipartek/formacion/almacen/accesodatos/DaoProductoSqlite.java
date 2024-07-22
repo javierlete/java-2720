@@ -8,21 +8,27 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import com.ipartek.formacion.almacen.entidades.Categoria;
 import com.ipartek.formacion.almacen.entidades.Producto;
 
 public class DaoProductoSqlite extends DaoSql<Producto> implements DaoProducto {
 
-	private static final String SQL_SELECT = "SELECT id, nombre, precio, stock, fecha_caducidad FROM productos";
-	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE id=?";
-	private static final String SQL_SELECT_PRECIO = SQL_SELECT + " WHERE precio BETWEEN ? AND ?";
-	private static final String SQL_INSERT = "INSERT INTO productos (nombre, precio, stock, fecha_caducidad) VALUES (?,?,?,?)";
-	private static final String SQL_UPDATE = "UPDATE productos SET nombre=?, precio=?, stock=?, fecha_caducidad=? WHERE id=?";
+	private static final String SQL_SELECT = """
+					SELECT *
+					FROM productos p
+					JOIN categorias c ON c.id = p.categorias_id
+			""";
+	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE p.id=?";
+	private static final String SQL_SELECT_PRECIO = SQL_SELECT + " WHERE p.precio BETWEEN ? AND ?";
+	private static final String SQL_INSERT = "INSERT INTO productos (nombre, precio, stock, fecha_caducidad, categorias_id) VALUES (?,?,?,?,?)";
+	private static final String SQL_UPDATE = "UPDATE productos SET nombre=?, precio=?, stock=?, fecha_caducidad=?, categorias_id=? WHERE id=?";
 	private static final String SQL_DELETE = "DELETE FROM productos WHERE id=?";
+	private static final String SQL_SELECT_CATEGORIA = SQL_SELECT + " WHERE p.categorias_id = ?";
 
 	public DaoProductoSqlite(String url, String user, String pass) {
 		super(url, user, pass);
 	}
-	
+
 	@Override
 	public Iterable<Producto> obtenerTodos() {
 		try (Connection con = obtenerConexion();
@@ -122,15 +128,42 @@ public class DaoProductoSqlite extends DaoSql<Producto> implements DaoProducto {
 		}
 	}
 
-	private Producto filaAProducto(ResultSet rs) throws SQLException {
-		long id = rs.getLong("id");
-		String nombre = rs.getString("nombre");
-		BigDecimal precio = rs.getBigDecimal("precio");
-		Integer stock = rs.getObject("stock") != null ? rs.getInt("stock") : null;
-		LocalDate fechaCaducidad = rs.getDate("fecha_caducidad") != null ? rs.getDate("fecha_caducidad").toLocalDate()
-				: null;
+	@Override
+	public Iterable<Producto> productosPorIdCategoria(Long id) {
+		try (Connection con = obtenerConexion(); PreparedStatement pst = con.prepareStatement(SQL_SELECT_CATEGORIA);) {
+			pst.setLong(1, id);
+
+			ResultSet rs = pst.executeQuery();
+
+			ArrayList<Producto> productos = new ArrayList<>();
+			Producto producto;
+
+			while (rs.next()) {
+				producto = filaAProducto(rs);
+
+				productos.add(producto);
+			}
+
+			return productos;
+		} catch (SQLException e) {
+			throw new AccesoDatosException("No se han podido obtener los registros", e);
+		}
 		
-		return new Producto(id, nombre, precio, stock, fechaCaducidad);
+	}
+
+	private Producto filaAProducto(ResultSet rs) throws SQLException {
+		long id = rs.getLong("p.id");
+		String nombre = rs.getString("p.nombre");
+		BigDecimal precio = rs.getBigDecimal("p.precio");
+		Integer stock = rs.getObject("p.stock") != null ? rs.getInt("p.stock") : null;
+		LocalDate fechaCaducidad = rs.getDate("p.fecha_caducidad") != null
+				? rs.getDate("p.fecha_caducidad").toLocalDate()
+				: null;
+
+		Categoria categoria = new Categoria(rs.getLong("c.id"), rs.getString("c.nombre"),
+				rs.getString("c.descripcion"));
+
+		return new Producto(id, nombre, precio, stock, fechaCaducidad, categoria);
 	}
 
 	private void productoAFila(Producto producto, PreparedStatement pst) throws SQLException {
@@ -139,9 +172,10 @@ public class DaoProductoSqlite extends DaoSql<Producto> implements DaoProducto {
 		pst.setObject(3, producto.getStock());
 		pst.setDate(4,
 				producto.getFechaCaducidad() != null ? java.sql.Date.valueOf(producto.getFechaCaducidad()) : null);
-
+		pst.setLong(5, producto.getCategoria().getId());
+		
 		if (producto.getId() != null) {
-			pst.setLong(5, producto.getId());
+			pst.setLong(6, producto.getId());
 		}
 	}
 

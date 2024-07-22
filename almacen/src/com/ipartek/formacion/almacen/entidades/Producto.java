@@ -117,11 +117,10 @@ public class Producto implements Serializable {
 				&& Objects.equals(stock, other.stock);
 	}
 
-	// Generate toString...
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", stock=" + stock + ", precio=" + precio
-				+ ", fechaCaducidad=" + fechaCaducidad + "]";
+				+ ", fechaCaducidad=" + fechaCaducidad + ", categoria=" + categoria + "]";
 	}
 
 }
