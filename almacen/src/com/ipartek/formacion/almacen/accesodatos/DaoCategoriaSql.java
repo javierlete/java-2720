@@ -53,16 +53,16 @@ public class DaoCategoriaSql extends DaoSql<Categoria> implements DaoCategoria {
 
 			if (rs.next()) {
 				categoria = filaACategoria(rs);
-				
+
 				Iterable<Producto> resultado = FabricaGenerica.getDaoProducto().productosPorIdCategoria(id);
-				
+
 				ArrayList<Producto> productos = categoria.getProductos();
-				
-				for(Producto p: resultado) {
+
+				for (Producto p : resultado) {
 					productos.add(p);
 				}
 			}
-			
+
 			return categoria;
 		} catch (SQLException e) {
 			throw new AccesoDatosException("No se ha podido obtener el registro", e);
@@ -132,7 +132,7 @@ public class DaoCategoriaSql extends DaoSql<Categoria> implements DaoCategoria {
 		long id = rs.getLong("id");
 		String nombre = rs.getString("nombre");
 		String descripcion = rs.getString("descripcion");
-		
+
 		return new Categoria(id, nombre, descripcion);
 	}
 
@@ -144,5 +144,5 @@ public class DaoCategoriaSql extends DaoSql<Categoria> implements DaoCategoria {
 			pst.setLong(3, categoria.getId());
 		}
 	}
-	
+
 }
