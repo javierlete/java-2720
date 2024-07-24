@@ -56,7 +56,7 @@ public class DaoCategoriaSql extends DaoSql<Categoria> implements DaoCategoria {
 
 				Iterable<Producto> resultado = FabricaGenerica.getDaoProducto().productosPorIdCategoria(id);
 
-				ArrayList<Producto> productos = categoria.getProductos();
+				var productos = categoria.getProductos();
 
 				for (Producto p : resultado) {
 					productos.add(p);
