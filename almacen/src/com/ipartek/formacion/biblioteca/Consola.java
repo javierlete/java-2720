@@ -75,6 +75,10 @@ public class Consola {
 					return i;
 				});
 	}
+	
+	public static Integer leerInt(String mensaje, boolean opcional) {
+		return leerInt(mensaje, opcional, Integer.MIN_VALUE);
+	}
 
 	public static BigDecimal leerBigDecimal(String mensaje, boolean opcional, BigDecimal minimo) {
 		return leer(String.format("%s (%s) (minimo=%s)", mensaje, opcional ? "opcional" : "obligatorio", minimo),
@@ -109,6 +113,10 @@ public class Consola {
 		});
 	}
 
+	public static LocalDate leerLocalDate(String mensaje, boolean opcional) {
+		return leerLocalDate(mensaje, opcional, LocalDate.MIN);
+	}
+	
 	public static <T> T leer(String mensaje, Function<String, T> funcion) {
 		boolean hayError = true;
 		T dato = null;

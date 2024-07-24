@@ -11,12 +11,19 @@ import com.ipartek.formacion.almacen.accesodatos.FabricaGenerica;
 import com.ipartek.formacion.almacen.entidades.Categoria;
 import com.ipartek.formacion.almacen.entidades.Producto;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+
 public class PresentacionConsola {
 	private static final int SALIR = 0;
 
 	private static final DaoProducto dao = FabricaGenerica.getDaoProducto();
 	private static final DaoCategoria daoCategoria = FabricaGenerica.getDaoCategoria();
-	
+
+	private static final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	private static final Validator validator = factory.getValidator();
+
 	public static void main(String[] args) {
 		int opcion;
 
@@ -59,7 +66,7 @@ public class PresentacionConsola {
 	}
 
 	private static void listado() {
-		for(var p: dao.obtenerTodos()) {
+		for (var p : dao.obtenerTodos()) {
 			mostrarLinea(p);
 		}
 	}
@@ -70,9 +77,9 @@ public class PresentacionConsola {
 
 	private static void buscar() {
 		Long id = leerLong("Dime el id a buscar");
-		
+
 		var producto = dao.obtenerPorId(id);
-		
+
 		mostrarFicha(producto);
 	}
 
@@ -82,54 +89,84 @@ public class PresentacionConsola {
 
 	private static void insertar() {
 		var producto = leerProducto();
-		
+
 		dao.insertar(producto);
 	}
 
 	private static Producto leerProducto() {
-		String nombre = leerString("Nombre", OBLIGATORIO);
-		BigDecimal precio = leerBigDecimal("Precio", OBLIGATORIO, BigDecimal.ZERO);
-		Integer stock = leerInt("Stock", OPCIONAL, 0);
-		LocalDate fechaCaducidad = leerLocalDate("Fecha de caducidad", OPCIONAL, LocalDate.now());
-		
+		String nombre;
+
+		do {
+			nombre = leerString("Nombre");
+		} while (!validar("nombre", nombre));
+
+		BigDecimal precio;
+		do {
+			precio = leerBigDecimal("Precio");
+		} while (!validar("precio", precio));
+
+		Integer stock;
+		do {
+			stock = leerInt("Stock", OPCIONAL);
+		} while (!validar("stock", stock));
+
+		LocalDate fechaCaducidad;
+		do {
+			fechaCaducidad = leerLocalDate("Fecha de caducidad", OPCIONAL);
+		} while (!validar("fechaCaducidad", fechaCaducidad));
+
 		listadoCategorias();
-		
+
 		Long idCategoria = leerLong("Id categoría");
+
 		Categoria categoria = new Categoria(idCategoria, null, null);
-		
+
 		return new Producto(null, nombre, precio, stock, fechaCaducidad, categoria);
 	}
 
+	private static boolean validar(String nombreCampo, Object valorCampo) {
+		var constraints = validator.validateValue(Producto.class, nombreCampo, valorCampo);
+		
+		if(constraints.size() > 0) {
+			for(var constraint: constraints) {
+				System.out.println(constraint.getMessage());
+			}
+			return false;
+		}
+		
+		return true;
+	}
+
 	private static void listadoCategorias() {
-		for(Categoria c: daoCategoria.obtenerTodos()) {
+		for (Categoria c : daoCategoria.obtenerTodos()) {
 			System.out.println(c);
 		}
 	}
 
 	private static void modificar() {
 		Long id = leerLong("Id");
-		
+
 		var producto = leerProducto();
-		
+
 		producto.setId(id);
-		
+
 		dao.modificar(producto);
 	}
 
 	private static void borrar() {
 		Long id = leerLong("Id");
-		
+
 		dao.borrar(id);
 	}
 
 	private static void categoria() {
 		Long id = leerLong("Id categoría");
-		
+
 		Categoria categoria = daoCategoria.obtenerPorId(id);
-		
+
 		System.out.println(categoria);
-		
-		for(Producto p: categoria.getProductos()) {
+
+		for (Producto p : categoria.getProductos()) {
 			System.out.println(p);
 		}
 	}
