@@ -1,30 +1,36 @@
 <%@page import="com.ipartek.formacion.almacen.entidades.Producto"%>
-<%@page import="com.ipartek.formacion.almacen.accesodatos.FabricaGenerica"%>
-<%@page import="com.ipartek.formacion.almacen.accesodatos.DaoProducto"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Productos</title>
-</head>
-<body>
+<%@ include file="/includes/cabecera.jsp"%>
 
-	<% 
-	DaoProducto dao = FabricaGenerica.getDaoProducto(); 
-	String sIdCategoria = request.getParameter("idcategoria");
-	Long idCategoria = Long.parseLong(sIdCategoria);
-	%>
+<%
+String sIdCategoria = request.getParameter("idcategoria");
+Long idCategoria = Long.parseLong(sIdCategoria);
+%>
 
-	<ul>
-		<% for(Producto p: dao.productosPorIdCategoria(idCategoria)) { %>
-		<li><%= p.getNombre() %></li>
-		<% } %>	
-	</ul>
-
+<main class="container">
+	<div
+		class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-4">
+		<%
+		for (Producto p : daoProducto.productosPorIdCategoria(idCategoria)) {
+		%>
+		<div class="col">
+			<div class="card h-100">
+				<img src="imgs/productos/<%=p.getId()%>.jpg"
+					class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">
+						<a class="stretched-link" href="#"><%=p.getNombre()%></a>
+					</h5>
+					<p class="card-text"><%=p.getPrecio()%></p>
+				</div>
+			</div>
+		</div>
+		<%
+		}
+		%>
+	</div>
 	<p>
-		<a href="categorias.jsp">Volver</a>
+		<a class="btn btn-primary" href="categorias.jsp">Volver</a>
 	</p>
-</body>
-</html>
+</main>
+
+<%@ include file="/includes/pie.jsp"%>

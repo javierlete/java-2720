@@ -1,42 +1,36 @@
-<%@page
-	import="com.ipartek.formacion.almacen.accesodatos.FabricaGenerica"%>
-<%@page import="com.ipartek.formacion.almacen.accesodatos.DaoCategoria"%>
-<%@page import="com.ipartek.formacion.almacen.entidades.Categoria"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Categoría</title>
-</head>
-<body>
+<%@ include file="/includes/cabecera.jsp"%>
+
+<%
+String nombre = request.getParameter("nombre");
+String descripcion = request.getParameter("descripcion");
+
+if (nombre != null) {
+	Categoria categoria = Categoria.builder().nombre(nombre).descripcion(descripcion).build();
+
+	daoCategoria.insertar(categoria);
+
+	response.sendRedirect("categorias.jsp");
+}
+%>
+
+<main class="container">
 
 	<form action="formulario-categoria.jsp" method="post">
-		<input name="nombre" placeholder="Nombre">
-		<textarea name="descripcion" placeholder="Descripción"></textarea>
-		<button>Guardar</button>
+		<div class="row mb-3">
+			<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+			<div class="col-sm-10">
+				<input class="form-control" id="nombre" name="nombre">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="descripcion" class="col-sm-2 col-form-label">Descripci�n</label>
+			<div class="col-sm-10">
+				<textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Guardar</button>
 	</form>
 
-	<%
-	String nombre = request.getParameter("nombre");
-	String descripcion = request.getParameter("descripcion");
+</main>
 
-	if (nombre != null) {
-		Categoria categoria = Categoria.builder().nombre(nombre).descripcion(descripcion).build();
-
-		DaoCategoria dao = FabricaGenerica.getDaoCategoria();
-
-		dao.insertar(categoria);
-		
-		response.sendRedirect("categorias.jsp");
-	}
-	%>
-
-	<pre>
-<%=nombre%>
-<%=descripcion%>
-</pre>
-
-</body>
-</html>
+<%@ include file="/includes/pie.jsp"%>
