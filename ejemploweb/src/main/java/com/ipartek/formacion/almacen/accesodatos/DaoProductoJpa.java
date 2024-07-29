@@ -47,14 +47,14 @@ public class DaoProductoJpa extends DaoJpa implements DaoProducto {
 	@Override
 	public Iterable<Producto> productosPorPrecio(BigDecimal minimo, BigDecimal maximo) {
 		return enTransaccion(
-				em -> em.createQuery("select p from Producto p where p.precio between ? and ?", Producto.class)
-						.setParameter(1, minimo).setParameter(2, maximo).getResultList());
+				em -> em.createQuery("select p from Producto p where p.precio between :minimo and :maximo", Producto.class)
+						.setParameter("minimo", minimo).setParameter("maximo", maximo).getResultList());
 	}
 
 	@Override
 	public Iterable<Producto> productosPorIdCategoria(Long id) {
-		return enTransaccion(em -> em.createQuery("select p from Producto p where p.categoria.id = ?", Producto.class)
-				.setParameter(1, id).getResultList());
+		return enTransaccion(em -> em.createQuery("select p from Producto p where p.categoria.id = :id", Producto.class)
+				.setParameter("id", id).getResultList());
 	}
 
 }
