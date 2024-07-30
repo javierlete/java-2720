@@ -14,8 +14,8 @@ Long idCategoria = Long.parseLong(sIdCategoria);
 		%>
 		<div class="col">
 			<div class="card h-100">
-				<img src="imgs/productos/<%=p.getId()%>.jpg"
-					class="card-img-top" alt="...">
+				<img src="imgs/productos/<%=p.getId()%>.jpg" class="card-img-top"
+					alt="...">
 				<div class="card-body">
 					<h5 class="card-title">
 						<a class="stretched-link" href="#"><%=p.getNombre()%></a>

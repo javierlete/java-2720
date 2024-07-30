@@ -8,11 +8,13 @@
 		%>
 		<div class="col">
 			<div class="card h-100">
-				<img src="imgs/categorias/<%=c.getId()%>.jpg"
-					class="card-img-top" alt="...">
+				<img src="imgs/categorias/<%=c.getId()%>.jpg" class="card-img-top"
+					alt="...">
 				<div class="card-body">
 					<h5 class="card-title">
-						<a class="stretched-link" href="productos.jsp?idcategoria=<%=c.getId()%>"><%=c.getNombre()%></a></h5>
+						<a class="stretched-link"
+							href="productos.jsp?idcategoria=<%=c.getId()%>"><%=c.getNombre()%></a>
+					</h5>
 					<p class="card-text"><%=c.getDescripcion()%></p>
 				</div>
 			</div>
