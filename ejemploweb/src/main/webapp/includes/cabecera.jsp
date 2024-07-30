@@ -1,10 +1,13 @@
-<%@page import="com.ipartek.formacion.almacen.accesodatos.DaoProducto"%>
-<%@page import="com.ipartek.formacion.almacen.entidades.Categoria"%>
-<%@page
+<%@ page import="com.ipartek.formacion.almacen.accesodatos.DaoProducto"%>
+<%@ page import="com.ipartek.formacion.almacen.entidades.Categoria"%>
+<%@ page
 	import="com.ipartek.formacion.almacen.accesodatos.FabricaGenerica"%>
-<%@page import="com.ipartek.formacion.almacen.accesodatos.DaoCategoria"%>
+<%@ page import="com.ipartek.formacion.almacen.accesodatos.DaoCategoria"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
+<fmt:setLocale value="es-ES"/>
 <!DOCTYPE html>
 <html>
 <head>
