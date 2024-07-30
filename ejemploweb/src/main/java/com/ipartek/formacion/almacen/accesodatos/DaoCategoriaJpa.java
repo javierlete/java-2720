@@ -15,7 +15,7 @@ public class DaoCategoriaJpa extends DaoJpa implements DaoCategoria {
 
 	@Override
 	public Categoria obtenerPorId(Long id) {
-		return enTransaccion(em -> em.createQuery("select c from Categoria c join fetch c.productos where c.id = ?1", Categoria.class).setParameter(1, id).getSingleResult());
+		return enTransaccion(em -> em.createQuery("select c from Categoria c left join fetch c.productos where c.id = ?1", Categoria.class).setParameter(1, id).getSingleResult());
 	}
 
 	@Override
