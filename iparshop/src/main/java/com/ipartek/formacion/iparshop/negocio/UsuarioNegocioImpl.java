@@ -14,8 +14,8 @@ public class UsuarioNegocioImpl implements UsuarioNegocio {
 	public Iterable<Producto> listarProductos() {
 		log.info("Se ha pedido un listado de productos");
 		
-		var producto1 = Producto.builder().nombre("Portátil").precio(new BigDecimal("1234.56")).build();
-		var producto2 = Producto.builder().nombre("Monitor").precio(new BigDecimal("234.56")).build();
+		var producto1 = Producto.builder().id(1L).nombre("Portátil").precio(new BigDecimal("1234.56")).build();
+		var producto2 = Producto.builder().id(2L).nombre("Monitor").precio(new BigDecimal("234.56")).build();
 		
 		var al = new ArrayList<Producto>();
 		al.add(producto1);
