@@ -15,7 +15,7 @@
 	
 	<ul>
 		<c:forEach items="${productos}" var="p">
-			<li>${p.nombre}: <fmt:formatNumber type="currency" value="${p.precio}"/></li>
+			<li>${p.nombre}: <fmt:formatNumber type="currency" value="${p.precio}"/> <a href="detalle?id=${p.id}">Ver detalle</a></li>
 		</c:forEach>
 	</ul>
 
