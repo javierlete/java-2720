@@ -10,6 +10,8 @@ import lombok.extern.java.Log;
 @Log
 public class UsuarioNegocioImpl implements UsuarioNegocio {
 
+	// private static Logger log = Logger.getLogger(UsuarioNegocioImpl.class.getName());
+	
 	@Override
 	public Iterable<Producto> listarProductos() {
 		log.info("Se ha pedido un listado de productos");
