@@ -11,19 +11,28 @@ import lombok.extern.java.Log;
 public class UsuarioNegocioImpl implements UsuarioNegocio {
 
 	// private static Logger log = Logger.getLogger(UsuarioNegocioImpl.class.getName());
+	private ArrayList<Producto> al = new ArrayList<Producto>();
+
+	public UsuarioNegocioImpl() {
+		var producto1 = Producto.builder().id(1L).nombre("Portátil").precio(new BigDecimal("1234.56")).build();
+		var producto2 = Producto.builder().id(2L).nombre("Monitor").precio(new BigDecimal("234.56")).build();
+		
+		al.add(producto1);
+		al.add(producto2);
+	}
 	
 	@Override
 	public Iterable<Producto> listarProductos() {
 		log.info("Se ha pedido un listado de productos");
 		
-		var producto1 = Producto.builder().id(1L).nombre("Portátil").precio(new BigDecimal("1234.56")).build();
-		var producto2 = Producto.builder().id(2L).nombre("Monitor").precio(new BigDecimal("234.56")).build();
-		
-		var al = new ArrayList<Producto>();
-		al.add(producto1);
-		al.add(producto2);
-		
 		return al;
+	}
+
+	@Override
+	public Producto detalleProducto(Long id) {
+		log.info("Se ha pedido el producto " + id);
+		
+		return al.stream().filter(p -> p.getId() == id).iterator().next();
 	}
 
 }
