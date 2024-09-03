@@ -15,9 +15,9 @@
 	
 	<dl>
 		<dt>Nombre</dt>
-		<dd>Producto 1</dd>
+		<dd>${producto.nombre}</dd>
 		<dt>Precio</dt>
-		<dd>1.234,56 €</dd>
+		<dd><fmt:formatNumber type="currency" value="${producto.precio}"/></dd>
 	</dl>
 
 </body>
