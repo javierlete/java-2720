@@ -14,6 +14,10 @@
 	<h1>IparShop</h1>
 
 	<h2>Administración</h2>
+	
+	<div>
+		<a href="../logout">Cerrar sesión</a>
+	</div>
 
 	<table>
 		<caption>Productos</caption>
