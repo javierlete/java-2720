@@ -21,10 +21,6 @@ public class CarritoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String sId = request.getParameter("id");
 
-		Long id = Long.parseLong(sId);
-
-		var producto = Fabrica.getUsuarioNegocio().detalleProducto(id);
-
 		HttpSession session = request.getSession();
 
 		@SuppressWarnings("unchecked")
@@ -36,7 +32,12 @@ public class CarritoServlet extends HttpServlet {
 			session.setAttribute("carrito", carrito);
 		}
 
-		carrito.add(producto);
+		if (sId != null) {
+			Long id = Long.parseLong(sId);
+
+			var producto = Fabrica.getUsuarioNegocio().detalleProducto(id);
+			carrito.add(producto);
+		}
 
 		request.getRequestDispatcher("carrito.jsp").forward(request, response);
 	}
