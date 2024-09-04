@@ -13,8 +13,10 @@
 
 	<h1>IparShop</h1>
 
+	<h2>CARRITO</h2>
+
 	<ul>
-		<c:forEach items="${productos}" var="p">
+		<c:forEach items="${carrito}" var="p">
 			<li>${p.nombre}:<fmt:formatNumber type="currency"
 					value="${p.precio}" /> <a href="detalle?id=${p.id}">Ver detalle</a> <a href="carrito?id=${p.id}">Agregar a carrito</a></li>
 		</c:forEach>
