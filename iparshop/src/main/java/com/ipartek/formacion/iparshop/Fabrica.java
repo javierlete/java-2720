@@ -6,11 +6,15 @@ import com.ipartek.formacion.iparshop.negocio.UsuarioNegocio;
 import com.ipartek.formacion.iparshop.negocio.UsuarioNegocioImplJpa;
 
 public class Fabrica {
+	
+	private static final UsuarioNegocio usuarioNegocio = new UsuarioNegocioImplJpa();
+	private static final DaoProducto daoProducto = new DaoProductoJpa();
+	
 	public static UsuarioNegocio getUsuarioNegocio() {
-		return new UsuarioNegocioImplJpa();
+		return usuarioNegocio;
 	}
 	
 	public static DaoProducto getDaoProducto() {
-		return new DaoProductoJpa();
+		return daoProducto;
 	}
 }
