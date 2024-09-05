@@ -23,7 +23,7 @@
 				<td>${p.fechaCaducidad}</td>
 				<td>
 					<a href="admin/producto?id=${p.id}">Editar</a>
-					<a href="#">Borrar</a>
+					<a href="admin/productos/borrar?id=${p.id}" onclick="javascript:return confirm('¿Estás seguro de borrar el ${p.nombre}?')">Borrar</a>
 				</td>
 			</tr>
 		</c:forEach>

@@ -24,4 +24,28 @@ public class DaoProductoJpa extends DaoJpa implements DaoProducto {
 	public Producto obtenerPorId(Long id) {
 		return enTransaccion(em -> em.find(Producto.class, id));
 	}
+
+	@Override
+	public Producto insertar(Producto producto) {
+		return enTransaccion(em -> {
+			em.persist(producto);
+			return producto;
+		});
+	}
+
+	@Override
+	public Producto modificar(Producto producto) {
+		return enTransaccion(em -> {
+			em.merge(producto);
+			return producto;
+		});
+	}
+
+	@Override
+	public void borrar(Long id) {
+		enTransaccion(em -> {
+			em.remove(em.find(Producto.class, id));
+			return null;
+		});
+	}
 }
