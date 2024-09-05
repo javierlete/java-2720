@@ -3,10 +3,6 @@
 <%@ include file="/WEB-INF/includes/cabecera.jsp"%>
 <h2>Administración</h2>
 
-<div>
-	<a href="../logout">Cerrar sesión</a>
-</div>
-
 <table>
 	<caption>Productos</caption>
 	<thead>
@@ -15,6 +11,7 @@
 			<th>Nombre</th>
 			<th>Precio</th>
 			<th>Fecha de caducidad</th>
+			<th>OPCIONES</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,8 +21,23 @@
 				<td>${p.nombre}</td>
 				<td><fmt:formatNumber type="currency" value="${p.precio}" /></td>
 				<td>${p.fechaCaducidad}</td>
+				<td>
+					<a href="#">Editar</a>
+					<a href="#">Borrar</a>
+				</td>
 			</tr>
 		</c:forEach>
 	</tbody>
+	<tfoot>
+		<tr>	
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>
+				<a href="#">Añadir</a>
+			</td>
+		</tr>
+	</tfoot>
 </table>
 <%@ include file="/WEB-INF/includes/pie.jsp"%>
