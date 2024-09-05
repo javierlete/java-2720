@@ -22,7 +22,7 @@
 				<td><fmt:formatNumber type="currency" value="${p.precio}" /></td>
 				<td>${p.fechaCaducidad}</td>
 				<td>
-					<a href="#">Editar</a>
+					<a href="admin/producto?id=${p.id}">Editar</a>
 					<a href="#">Borrar</a>
 				</td>
 			</tr>
@@ -35,7 +35,7 @@
 			<td></td>
 			<td></td>
 			<td>
-				<a href="#">Añadir</a>
+				<a href="admin/producto">Añadir</a>
 			</td>
 		</tr>
 	</tfoot>
