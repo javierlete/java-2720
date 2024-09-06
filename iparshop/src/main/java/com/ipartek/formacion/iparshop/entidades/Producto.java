@@ -41,7 +41,7 @@ public class Producto {
 	@Size(max = 2000)
 	private String descripcion;
 	
-	@NotNull
+	@NotNull(message = "es obligatorio rellenarlo")
 	@Min(0)
 	private BigDecimal precio;
 	

@@ -35,26 +35,35 @@ public class ProductoAdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 //	Recoger información de la petición
-	    String sId = request.getParameter("id");
-	    String nombre = request.getParameter("nombre");
-	    String sPrecio = request.getParameter("precio");
-	    String sFechaCaducidad = request.getParameter("fecha-caducidad");
-	    String descripcion = request.getParameter("descripcion");
+		String sId = request.getParameter("id");
+		String nombre = request.getParameter("nombre");
+		String sPrecio = request.getParameter("precio");
+		String sFechaCaducidad = request.getParameter("fecha-caducidad");
+		String descripcion = request.getParameter("descripcion");
 //	Convertir
-	    Long id = !sId.isBlank() ? Long.parseLong(sId) : null;
-	    BigDecimal precio = !sPrecio.isBlank() ? new BigDecimal(sPrecio) : null;
-	    LocalDate fechaCaducidad = !sFechaCaducidad.isBlank() ? LocalDate.parse(sFechaCaducidad) : null;
+		Long id = !sId.isBlank() ? Long.parseLong(sId) : null;
+		BigDecimal precio = !sPrecio.isBlank() ? new BigDecimal(sPrecio) : null;
+		LocalDate fechaCaducidad = !sFechaCaducidad.isBlank() ? LocalDate.parse(sFechaCaducidad) : null;
 //	Empaquetar en modelos
-	    var producto = Producto.builder().id(id).nombre(nombre).precio(precio).fechaCaducidad(fechaCaducidad).descripcion(descripcion).build();
+		var producto = Producto.builder().id(id).nombre(nombre).precio(precio).fechaCaducidad(fechaCaducidad)
+				.descripcion(descripcion).build();
 //	Llamar a la lógica de negocio
-	    if(producto.getId() == null) {
-	    	Fabrica.getAdminNegocio().agregarProducto(producto);
-	    } else {
-	    	Fabrica.getAdminNegocio().modificarProducto(producto);
-	    }
+		var errores = Fabrica.getAdminNegocio().guardarProducto(producto);
+
+		if (errores.size() > 0) {
+//			Empaquetamos los objetos que queremos ver en pantalla
+			request.setAttribute("errores", errores);
+			request.setAttribute("producto", producto);
+
+//			Llamamos a la pantalla
+			request.getRequestDispatcher("/admin/producto.jsp").forward(request, response);
+			return;
+		}
+
 //	Empaquetamos los objetos que queremos ver en pantalla
-	    
+
 //	Llamamos a la pantalla
-	    response.sendRedirect("productos");
+		response.sendRedirect("productos");
 	}
+
 }
