@@ -1,11 +1,9 @@
 package com.ipartek.formacion.iparshop.presentacion.controladores.admin;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import com.ipartek.formacion.iparshop.Fabrica;
-import com.ipartek.formacion.iparshop.entidades.Producto;
+import com.ipartek.formacion.iparshop.modelos.ProductoForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -40,28 +38,20 @@ public class ProductoAdminServlet extends HttpServlet {
 		String sPrecio = request.getParameter("precio");
 		String sFechaCaducidad = request.getParameter("fecha-caducidad");
 		String descripcion = request.getParameter("descripcion");
-//	Convertir
-		Long id = !sId.isBlank() ? Long.parseLong(sId) : null;
-		BigDecimal precio = !sPrecio.isBlank() ? new BigDecimal(sPrecio) : null;
-		LocalDate fechaCaducidad = !sFechaCaducidad.isBlank() ? LocalDate.parse(sFechaCaducidad) : null;
 //	Empaquetar en modelos
-		var producto = Producto.builder().id(id).nombre(nombre).precio(precio).fechaCaducidad(fechaCaducidad)
-				.descripcion(descripcion).build();
+		var productoForm = ProductoForm.builder().id(sId).nombre(nombre).precio(sPrecio).fechaCaducidad(sFechaCaducidad).descripcion(descripcion).build();
 //	Llamar a la lógica de negocio
-		var errores = Fabrica.getAdminNegocio().guardarProducto(producto);
+		var errores = Fabrica.getAdminNegocio().guardarProducto(productoForm);
 
 		if (errores.size() > 0) {
 //			Empaquetamos los objetos que queremos ver en pantalla
 			request.setAttribute("errores", errores);
-			request.setAttribute("producto", producto);
+			request.setAttribute("producto", productoForm);
 
 //			Llamamos a la pantalla
 			request.getRequestDispatcher("/admin/producto.jsp").forward(request, response);
 			return;
 		}
-
-//	Empaquetamos los objetos que queremos ver en pantalla
-
 //	Llamamos a la pantalla
 		response.sendRedirect("productos");
 	}
