@@ -12,7 +12,7 @@ public class ProductoForm {
 	
 	private String nombre;
 
-	@Pattern(regexp = "^\\d+\\.?\\d*$", message = "debe ser un número con o sin decimales")
+	@Pattern(regexp = "^\\d+(\\.\\d+)?$", message = "debe ser un número con o sin decimales")
 	private String precio;
 	
 	@Pattern(regexp = "^(\\d{4}\\-\\d{2}\\-\\d{2})?$", message = "debe ser una fecha en formato AAAA-MM-DD")

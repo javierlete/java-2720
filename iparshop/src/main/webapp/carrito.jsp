@@ -2,14 +2,25 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/includes/cabecera.jsp"%>
 
-<h2>CARRITO</h2>
+<main class="container text-center">
+	<h2>CARRITO</h2>
 
-<ul>
-	<c:forEach items="${carrito}" var="p">
-		<li>${p.nombre}:<fmt:formatNumber type="currency"
-				value="${p.precio}" /> <a href="detalle?id=${p.id}">Ver detalle</a>
-			<a href="carrito?id=${p.id}">Agregar a carrito</a></li>
-	</c:forEach>
-</ul>
+	<table class="table w-auto m-auto">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th class="text-end">Precio</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${carrito}" var="p">
+				<tr>
+					<td>${p.nombre}</td>
+					<td class="text-end"><fmt:formatNumber type="currency" value="${p.precio}" /></td>
+				</tr>
+			</c:forEach>
+		</tbody>
 
+	</table>
+</main>
 <%@ include file="/WEB-INF/includes/pie.jsp"%>
