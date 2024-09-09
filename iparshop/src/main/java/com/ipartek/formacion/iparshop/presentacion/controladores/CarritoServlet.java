@@ -1,10 +1,9 @@
 package com.ipartek.formacion.iparshop.presentacion.controladores;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import com.ipartek.formacion.iparshop.Fabrica;
-import com.ipartek.formacion.iparshop.entidades.Producto;
+import com.ipartek.formacion.iparshop.modelos.Carrito;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,11 +22,10 @@ public class CarritoServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		@SuppressWarnings("unchecked")
-		var carrito = (ArrayList<Producto>) session.getAttribute("carrito");
+		var carrito = (Carrito) session.getAttribute("carrito");
 
 		if (carrito == null) {
-			carrito = new ArrayList<Producto>();
+			carrito = new Carrito();
 
 			session.setAttribute("carrito", carrito);
 		}
@@ -36,7 +34,7 @@ public class CarritoServlet extends HttpServlet {
 			Long id = Long.parseLong(sId);
 
 			var producto = Fabrica.getUsuarioNegocio().detalleProducto(id);
-			carrito.add(producto);
+			carrito.agregarProducto(producto);
 		}
 
 		request.getRequestDispatcher("carrito.jsp").forward(request, response);

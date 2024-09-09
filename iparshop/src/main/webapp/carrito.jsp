@@ -9,27 +9,30 @@
 		<thead>
 			<tr>
 				<th>Nombre</th>
+				<th>Cantidad</th>
 				<th class="text-end">Precio</th>
+				<th>Total</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:set var="total" value="${0}" />
-
-			<c:forEach items="${carrito}" var="p">
-				<c:set var="total" value="${total + p.precio}" />
-
+			<c:forEach items="${carrito.lineas}" var="l">
 				<tr>
-					<td>${p.nombre}</td>
+					<td>${l.producto.nombre}</td>
+					<td>${l.cantidad}</td>
 					<td class="text-end"><fmt:formatNumber type="currency"
-							value="${p.precio}" /></td>
+							value="${l.producto.precio}" /></td>
+					<td><fmt:formatNumber type="currency"
+							value="${l.total}" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 		<tfoot>
 			<tr>
+				<td></td>
+				<td></td>
 				<th>Total</th>
 				<th class="text-end"><fmt:formatNumber type="currency"
-							value="${total}" /></th>
+							value="${carrito.total}" /></th>
 			</tr>
 		</tfoot>
 	</table>
