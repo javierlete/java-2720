@@ -49,6 +49,17 @@ public class Carrito {
 		return agregarProducto(producto, 1);
 	}
 
+	public Linea actualizarCantidad(Producto producto, int cantidad) {
+		if(cantidad == 0) {
+			lineas.remove(producto.getId());
+			return null;
+		}
+		
+		Linea linea = lineas.get(producto.getId());
+		linea.setCantidad(cantidad);
+		return linea;
+	}
+
 	@Data
 	@Builder
 	public static class Linea {

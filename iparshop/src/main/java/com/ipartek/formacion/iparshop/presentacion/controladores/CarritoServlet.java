@@ -25,15 +25,26 @@ public class CarritoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String sId = request.getParameter("id");
 		String sCantidad = request.getParameter("cantidad");
-
+		String sActualizar = request.getParameter("actualizar");
+		String sVaciar = request.getParameter("vaciar");
+		
+		boolean actualizar = sActualizar != null;
+		
+		boolean vaciar = sVaciar != null;
+		
 		HttpSession session = request.getSession();
 
 		var carrito = (Carrito) session.getAttribute("carrito");
 
-		if (carrito == null) {
+		if (carrito == null || vaciar) {
 			carrito = new Carrito();
 
 			session.setAttribute("carrito", carrito);
+			
+			if(vaciar) {
+				response.sendRedirect("carrito");
+				return;
+			}
 		}
 
 		if (sId != null) {
@@ -44,7 +55,11 @@ public class CarritoServlet extends HttpServlet {
 			if(sCantidad != null) {
 				int cantidad = Integer.parseInt(sCantidad);
 				
-				carrito.agregarProducto(producto, cantidad);
+				if(actualizar) {
+					carrito.actualizarCantidad(producto, cantidad);
+				} else {
+					carrito.agregarProducto(producto, cantidad);
+				}
 			} else {
 				carrito.agregarProducto(producto);
 			}

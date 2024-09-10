@@ -37,6 +37,4 @@
 	</div>
 </main>
 
-<script defer src="js/cantidades.js"></script>
-
 <%@ include file="/WEB-INF/includes/pie.jsp"%>
