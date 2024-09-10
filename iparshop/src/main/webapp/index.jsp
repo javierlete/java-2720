@@ -8,18 +8,26 @@
 		<c:forEach items="${productos}" var="p">
 			<div class="col">
 				<div class="card h-100">
-					<img src="https://picsum.photos/400/300?${p.id}"
-						class="card-img-top" alt="...">
-					<div class="card-body d-flex flex-column">
+					<a href="detalle?id=${p.id}"> <img
+						src="https://picsum.photos/400/300?${p.id}" class="card-img-top"
+						alt="..."></a>
+					<form action="carrito" method="post" class="card-body d-flex flex-column">
+						<input type="hidden" name="id" value="${p.id}">
 						<h5 class="card-title">${p.nombre}</h5>
 						<p class="card-text mb-auto">${p.descripcion}</p>
-						<div class="d-flex mt-2">
-							<a class="btn btn-primary me-1 flex-fill" href="detalle?id=${p.id}"><i
-								class="bi bi-search"></i></a> <a class="btn btn-primary flex-fill"
-								href="carrito?id=${p.id}"><i class="bi bi-cart-plus"></i></a>
+						<div class="cantidad input-group mt-3">
+							<button class="btn btn-outline-secondary fs-5" type="button"><i class="bi bi-dash-lg"></i></button>
+							<input name="cantidad" type="number" min="1" class="form-control text-center" value="1">
+							<button class="btn btn-outline-secondary fs-5" type="button"><i class="bi bi-plus-lg"></i></button>
 						</div>
-					</div>
-					<div class="card-footer">
+						<div class="d-flex mt-2">
+							<a class="btn btn-primary me-1 flex-fill"
+								href="detalle?id=${p.id}"><i class="bi bi-search"></i></a> <button type="submit"
+								class="btn btn-primary flex-fill"><i
+								class="bi bi-cart-plus"></i></button>
+						</div>
+					</form>
+					<div class="card-footer text-end">
 						<small class="text-body-secondary"><fmt:formatNumber
 								type="currency" value="${p.precio}" /></small>
 					</div>
@@ -28,5 +36,7 @@
 		</c:forEach>
 	</div>
 </main>
+
+<script defer src="js/cantidades.js"></script>
 
 <%@ include file="/WEB-INF/includes/pie.jsp"%>

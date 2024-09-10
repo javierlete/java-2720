@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox y estándar */
+input[type=number] {
+  appearance: textfield;
+}

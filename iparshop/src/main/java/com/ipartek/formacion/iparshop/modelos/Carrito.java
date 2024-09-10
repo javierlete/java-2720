@@ -31,20 +31,24 @@ public class Carrito {
 				.reduce((totalParcial, total) -> total.add(totalParcial)).orElse(BigDecimal.ZERO);
 	}
 
-	public Linea agregarProducto(Producto producto) {
+	public Linea agregarProducto(Producto producto, int cantidad) {
 		Linea linea = null;
 		
 		if(lineas.containsKey(producto.getId())) {
 			linea = lineas.get(producto.getId());
-			linea.setCantidad(linea.getCantidad() + 1);
+			linea.setCantidad(linea.getCantidad() + cantidad);
 		} else {
-			linea = Linea.builder().producto(producto).cantidad(1).build();
+			linea = Linea.builder().producto(producto).cantidad(cantidad).build();
 			lineas.put(producto.getId(), linea);
 		}
 		
 		return linea;
 	}
-	
+
+	public Linea agregarProducto(Producto producto) {
+		return agregarProducto(producto, 1);
+	}
+
 	@Data
 	@Builder
 	public static class Linea {
