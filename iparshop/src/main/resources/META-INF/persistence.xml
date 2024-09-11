@@ -8,10 +8,36 @@
 		<properties>
 			<!-- Database connection settings -->
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:sqlite:/Users/html.IPARTEKAULA/git/java-2720/iparshop/sql/iparshop.sqlite" />
+				value="jdbc:sqlite:/Users/html.IPARTEKAULA/git/java-2720/iparshop/sql/iparshop.sqlite?foreign_keys=true" />
 			<property name="jakarta.persistence.jdbc.user" value="root" />
 			<property name="jakarta.persistence.jdbc.password" value="1234" />
 			<property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC" />
+
+			<!-- Automatically export the schema -->
+			<!-- <property
+				name="jakarta.persistence.schema-generation.database.action"
+				value="create" /> -->
+
+			<!-- Echo all executed SQL to console -->
+			
+			<property name="hibernate.dialect" value="org.hibernate.community.dialect.SQLiteDialect"/>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.highlight_sql" value="false" />
+		</properties>
+
+	</persistence-unit>
+	
+	<persistence-unit name="com.ipartek.formacion.iparshop.entidades.mysql">
+
+		<properties>
+			<!-- Database connection settings -->
+			<property name="jakarta.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/iparshop" />
+			<property name="jakarta.persistence.jdbc.user" value="root" />
+			<property name="jakarta.persistence.jdbc.password" value="1234" />
 
 			<!-- Automatically export the schema -->
 			<!-- <property
