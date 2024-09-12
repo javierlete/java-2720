@@ -74,6 +74,11 @@ public class UsuarioNegocioImplJpa implements UsuarioNegocio {
 	}
 
 	@Override
+	public Factura pedirFactura(long id) {
+		return Fabrica.getDaoFactura().obtenerPorId(id);
+	}
+
+	@Override
 	public synchronized Factura guardarFactura(Factura facturaProvisional) {
 		
 		var factura = facturaProvisional;

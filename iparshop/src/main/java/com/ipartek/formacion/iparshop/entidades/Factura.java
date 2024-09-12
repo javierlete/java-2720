@@ -18,11 +18,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 
 @Entity
 @Table(name = "facturas")
@@ -81,6 +85,9 @@ public class Factura {
 
 	@Data
 	@Builder
+	@AllArgsConstructor
+	@NoArgsConstructor
+	
 	@Entity
 	@Table(name = "lineas-factura")
 	public static class LineaFactura {

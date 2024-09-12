@@ -20,9 +20,31 @@ public class FacturaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		String sId = request.getParameter("id");
+		
+		if(sId != null) {
+			// NOS DAN UN ID DE FACTURA PARA VISUALIZAR
+			var id = Long.parseLong(sId);
+			var factura = Fabrica.getUsuarioNegocio().pedirFactura(id);
+			
+			request.setAttribute("factura", factura);
+			
+			request.getRequestDispatcher("factura.jsp").forward(request, response);
+			
+			return;
+		}
+		
 		HttpSession session = request.getSession();
 
 		var carrito = (Carrito) session.getAttribute("carrito");
+
+		if(!carrito.getLineas().iterator().hasNext()) {
+			// CARRITO VACÍO
+			response.sendRedirect("carrito");
+			return;
+		}
+		
+		// CARRITO LLENO
 		var cliente = (Cliente) session.getAttribute("cliente");
 
 		cliente = Cliente.builder().nombre("Pepe Pérez").ciudad("Bilbao").codigoPostal("12345").direccion("Su casa").nif("12345678Z").build();
@@ -32,9 +54,10 @@ public class FacturaServlet extends HttpServlet {
 		var factura = Fabrica.getUsuarioNegocio().pedirFactura(cliente, carrito);
 		var facturaGuardada = Fabrica.getUsuarioNegocio().guardarFactura(factura);
 		
-		request.setAttribute("factura", facturaGuardada);
+		carrito = new Carrito();
+		session.setAttribute("carrito", carrito);
 		
-		request.getRequestDispatcher("factura.jsp").forward(request, response);
+		response.sendRedirect("factura?id=" + facturaGuardada.getId());
 	}
 
 }
