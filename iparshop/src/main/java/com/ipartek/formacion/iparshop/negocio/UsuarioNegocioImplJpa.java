@@ -1,5 +1,6 @@
 package com.ipartek.formacion.iparshop.negocio;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,15 @@ import lombok.extern.java.Log;
 
 @Log
 public class UsuarioNegocioImplJpa implements UsuarioNegocio {
+
+	@Override
+	public Cliente guardarCliente(Cliente cliente) {
+		if(cliente.getId() == null) {
+			return Fabrica.getDaoCliente().insertar(cliente);
+		} else {
+			return Fabrica.getDaoCliente().modificar(cliente);
+		}
+	}
 
 	@Override
 	public Iterable<Producto> listarProductos() {
@@ -58,8 +68,55 @@ public class UsuarioNegocioImplJpa implements UsuarioNegocio {
 		
 		fb.lineas(lineasFactura);
 		
-		fb.numero("2024-1234");
+		fb.numero("FACTURA PRO FORMA");
 		
 		return fb.build();
+	}
+
+	@Override
+	public synchronized Factura guardarFactura(Factura facturaProvisional) {
+		
+		var factura = facturaProvisional;
+		
+		var numero = siguienteNumero();
+
+		factura.setNumero(numero);
+		
+		return Fabrica.getDaoFactura().insertar(factura);
+	}
+
+	private String siguienteNumero() {
+		String numero = null;
+
+		var anyoActual = LocalDate.now().getYear();
+		
+		String ultimoNumero = Fabrica.getDaoFactura().obtenerUltimoNumero();
+
+		// No facturas todavía
+		if(ultimoNumero == null) {
+			numero = formatearNumero(anyoActual, 1);
+			return numero;
+		}
+		
+		// Sí hay facturas
+		var partes = ultimoNumero.split("-");
+		
+		var anyo = Integer.parseInt(partes[0]);
+		var serie = Integer.parseInt(partes[1]);
+		
+		// El año de la última factura no es el actual
+		if(anyoActual != anyo) {
+			numero = formatearNumero(anyoActual, 1);
+			return numero;
+		}
+		
+		// El año de la última factura es el actual
+		numero = formatearNumero(anyo, ++serie);
+		
+		return numero;
+	}
+
+	private String formatearNumero(int anyo, int serie) {
+		return String.format("%d-%08d", anyo, serie);
 	}
 }

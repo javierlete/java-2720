@@ -27,9 +27,12 @@ public class FacturaServlet extends HttpServlet {
 
 		cliente = Cliente.builder().nombre("Pepe Pérez").ciudad("Bilbao").codigoPostal("12345").direccion("Su casa").nif("12345678Z").build();
 		
-		var factura = Fabrica.getUsuarioNegocio().pedirFactura(cliente, carrito);
+		Fabrica.getUsuarioNegocio().guardarCliente(cliente);
 		
-		request.setAttribute("factura", factura);
+		var factura = Fabrica.getUsuarioNegocio().pedirFactura(cliente, carrito);
+		var facturaGuardada = Fabrica.getUsuarioNegocio().guardarFactura(factura);
+		
+		request.setAttribute("factura", facturaGuardada);
 		
 		request.getRequestDispatcher("factura.jsp").forward(request, response);
 	}
