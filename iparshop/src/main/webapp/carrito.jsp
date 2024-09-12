@@ -76,5 +76,9 @@
 			</tr>
 		</tfoot>
 	</table>
+	
+	<div>
+		<a class="btn btn-primary" href="factura">Comprar</a>
+	</div>
 </main>
 <%@ include file="/WEB-INF/includes/pie.jsp"%>

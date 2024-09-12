@@ -4,7 +4,7 @@
 <div class="pt-5"></div>
 <div class="pt-5"></div>
 
-<footer class="fixed-bottom text-bg-dark p-2">
+<footer class="d-print-none fixed-bottom text-bg-dark p-2">
 	<p>
 		&copy; 2024 Javier Lete
 	</p>

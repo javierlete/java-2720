@@ -15,17 +15,17 @@
 		</address>
 
 		<address id="receptor" class="text-end">
-			<p class="lh-1">Cliente Clientez</p>
-			<p class="lh-1">Calle Kalea</p>
-			<p class="lh-1">54321</p>
-			<p class="lh-1">Su ciudad</p>
-			<p class="lh-1 fw-bold">12345678Z</p>
+			<p class="lh-1">${factura.nombreCliente}</p>
+			<p class="lh-1">${factura.direccionCliente}</p>
+			<p class="lh-1">${factura.codigoPostalCliente}</p>
+			<p class="lh-1">${factura.ciudadCliente}</p>
+			<p class="lh-1 fw-bold">${factura.nifCliente}</p>
 		</address>
 	</div>
 	
 	<div class="d-flex justify-content-between">
-		<p class="fw-bold">Factura nº: 1234</p>
-		<p class="fw-bold">2024-09-11</p>
+		<p class="fw-bold">Factura nº: ${factura.numero}</p>
+		<p class="fw-bold">${factura.fecha}</p>
 	</div>
 
 	<table class="table table-bordered">
@@ -38,17 +38,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td class="text-start align-baseline">Un producto</td>
-				<td class="text-end align-baseline">1.234,56 €</td>
-				<td class="align-baseline">3</td>
-				<td class="align-baseline text-end">3456,78 €</td>
-			</tr>
 			<c:forEach items="${factura.lineas}" var="l">
 				<tr>
-					<td class="text-start align-baseline">${l.producto.nombre}</td>
+					<td class="text-start align-baseline">${l.nombre}</td>
 					<td class="text-end align-baseline"><fmt:formatNumber
-							type="currency" value="${l.producto.precio}" /></td>
+							type="currency" value="${l.precio}" /></td>
 					<td class="align-baseline">${l.cantidad}</td>
 					<td class="align-baseline text-end"><fmt:formatNumber type="currency"
 							value="${l.total}" /></td>
@@ -60,24 +54,24 @@
 				<td></td>
 				<td></td>
 				<th class="text-end">Subtotal</th>
-				<th class="text-end">3.456,78 € <%-- 					<fmt:formatNumber type="currency" --%>
-					<%-- 						value="${factura.total}" /> --%>
+				<th class="text-end">
+					<fmt:formatNumber type="currency" value="${factura.subtotal}" />
 				</th>
 			</tr>
 			<tr>
 				<td></td>
 				<td></td>
 				<th class="text-end">IVA (21%)</th>
-				<th class="text-end">3.456,78 € <%-- 					<fmt:formatNumber type="currency" --%>
-					<%-- 						value="${factura.total}" /> --%>
+				<th class="text-end">
+					<fmt:formatNumber type="currency" value="${factura.iva}" />
 				</th>
 			</tr>
 			<tr>
 				<td></td>
 				<td></td>
 				<th class="text-end">Total</th>
-				<th class="text-end">3.456,78 € <%-- 					<fmt:formatNumber type="currency" --%>
-					<%-- 						value="${factura.total}" /> --%>
+				<th class="text-end">
+					<fmt:formatNumber type="currency" value="${factura.total}" />
 				</th>
 			</tr>
 		</tfoot>

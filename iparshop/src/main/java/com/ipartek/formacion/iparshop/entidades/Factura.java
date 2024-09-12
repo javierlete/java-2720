@@ -27,6 +27,8 @@ import lombok.Data;
 @Entity
 @Table(name = "facturas")
 public class Factura {
+	private static final BigDecimal IVA = new BigDecimal("0.21");
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -73,6 +75,8 @@ public class Factura {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<LineaFactura> lineas;
 
+	@Data
+	@Builder
 	@Entity
 	@Table(name = "lineas-factura")
 	public static class LineaFactura {
@@ -99,5 +103,17 @@ public class Factura {
 		public BigDecimal getTotal() {
 			return precio.multiply(new BigDecimal(cantidad));
 		}
+	}
+	
+	public BigDecimal getSubtotal() {
+		return lineas.stream().map(l -> l.getTotal()).reduce((totalParcial, total) -> total.add(totalParcial)).orElse(null);
+	}
+	
+	public BigDecimal getIva() {
+		return getSubtotal().multiply(IVA);
+	}
+	
+	public BigDecimal getTotal() {
+		return getSubtotal().add(getIva());
 	}
 }

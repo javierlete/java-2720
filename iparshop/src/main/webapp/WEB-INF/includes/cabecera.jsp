@@ -22,7 +22,7 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-sm bg-dark sticky-top" data-bs-theme="dark">
+	<nav class="d-print-none navbar navbar-expand-sm bg-dark sticky-top" data-bs-theme="dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">IparShop</a>
 			<button class="navbar-toggler" type="button"
