@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 		if(cliente != null) {
 			request.getSession().setAttribute("cliente", cliente);
 			
-			response.sendRedirect("admin/productos");
+			response.sendRedirect(request.getContextPath() + "/");
 			
 			return;
 		} else {

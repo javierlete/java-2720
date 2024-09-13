@@ -38,6 +38,7 @@ public class Cliente {
 	@NotBlank
 	@Email
 	@Size(max = 100)
+	@Column(unique = true)
 	private String email;
 	
 	@NotNull

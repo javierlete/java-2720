@@ -20,6 +20,7 @@ public class RegistroServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String sId = request.getParameter("id");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String nombre = request.getParameter("nombre");
@@ -28,7 +29,9 @@ public class RegistroServlet extends HttpServlet {
 		String ciudad = request.getParameter("ciudad");
 		String nif = request.getParameter("nif");
 		
-		var cliente = Cliente.builder().email(email).password(password).nombre(nombre).direccion(direccion).codigoPostal(codigoPostal).ciudad(ciudad).nif(nif).build();
+		Long id = sId.isBlank() ? null : Long.parseLong(sId);
+		
+		var cliente = Cliente.builder().id(id).email(email).password(password).nombre(nombre).direccion(direccion).codigoPostal(codigoPostal).ciudad(ciudad).nif(nif).build();
 		
 		var errores = Fabrica.getUsuarioNegocio().guardarCliente(cliente);
 		

@@ -1,5 +1,7 @@
 package com.ipartek.formacion.iparshop.negocio;
 
+import static com.ipartek.formacion.biblioteca.Validaciones.*;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +15,6 @@ import com.ipartek.formacion.iparshop.entidades.Producto;
 import com.ipartek.formacion.iparshop.modelos.Carrito;
 
 import lombok.extern.java.Log;
-import static com.ipartek.formacion.biblioteca.Validaciones.*;
 
 @Log
 public class UsuarioNegocioImplJpa implements UsuarioNegocio {
@@ -105,6 +106,10 @@ public class UsuarioNegocioImplJpa implements UsuarioNegocio {
 		Cliente cliente = Fabrica.getDaoCliente().buscarPorEmail(email);
 		
 		if(cliente != null && cliente.getPassword().equals(password)) {
+			cliente.setPassword("");
+			
+			System.out.println(cliente);
+			
 			return cliente;
 		}
 		
