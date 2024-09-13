@@ -2,6 +2,8 @@ package com.ipartek.formacion.iparshop.accesodatos;
 
 import com.ipartek.formacion.iparshop.entidades.Cliente;
 
+import jakarta.persistence.NoResultException;
+
 public class DaoClienteJpa extends DaoJpa implements DaoCliente {
 
 	public DaoClienteJpa() {
@@ -21,6 +23,17 @@ public class DaoClienteJpa extends DaoJpa implements DaoCliente {
 		return enTransaccion(em -> {
 			em.merge(cliente);
 			return cliente;
+		});
+	}
+
+	@Override
+	public Cliente buscarPorEmail(String email) {
+		return enTransaccion(em -> {
+			try {
+				return em.createQuery("select c from Cliente c where email=:email", Cliente.class).setParameter("email", email).getSingleResult();
+			} catch (NoResultException e) {
+				return null;
+			}
 		});
 	}
 }

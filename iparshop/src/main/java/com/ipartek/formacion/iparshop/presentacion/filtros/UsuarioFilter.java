@@ -14,8 +14,8 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebFilter("/admin/*")
-public class AdminFilter extends HttpFilter implements Filter {
+@WebFilter({"/usuario/*", "/factura"})
+public class UsuarioFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = -8047514992085519926L;
 
@@ -26,8 +26,8 @@ public class AdminFilter extends HttpFilter implements Filter {
 
 		Cliente cliente = (Cliente) req.getSession().getAttribute("cliente");
 
-		if (cliente == null || !cliente.getEmail().equals("admin@email.net")) {
-			res.sendRedirect("../login");
+		if (cliente == null) {
+			res.sendRedirect(req.getContextPath() + "/login");
 			return;
 		}
 

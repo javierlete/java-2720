@@ -43,7 +43,7 @@ public class Cliente {
 	@NotNull
 	@NotBlank
 	@Size(max = 100)
-	@Pattern(regexp = "^(?=.*\\d)(?=.*\\p{Ll})(?=.*\\p{Lu})(?=.*[\\+\\-_]).{8,100}$")
+	@Pattern(regexp = "^(?=.*\\d)(?=.*\\p{Ll})(?=.*\\p{Lu})(?=.*[\\+\\-_\\$]).{8,100}$")
 	private String password;
 	
 	@NotNull

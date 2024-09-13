@@ -22,7 +22,8 @@
 </head>
 <body>
 
-	<nav class="d-print-none navbar navbar-expand-sm bg-dark sticky-top" data-bs-theme="dark">
+	<nav class="d-print-none navbar navbar-expand-sm bg-dark sticky-top"
+		data-bs-theme="dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">IparShop</a>
 			<button class="navbar-toggler" type="button"
@@ -37,11 +38,17 @@
 				</ul>
 				<ul class="navbar-nav mb-2 mb-sm-0">
 					<li class="nav-item"><a class="nav-link" href="carrito">Carrito</a></li>
+
+					<c:if test="${sessionScope.cliente.email == 'admin@email.net'}">
+						<li class="nav-item"><a class="nav-link"
+							href="admin/productos">Administración</a></li>
+					</c:if>
+
 					<c:choose>
-						<c:when test="${sessionScope.usuario != null}">
+						<c:when test="${sessionScope.cliente != null}">
 							<li class="nav-item"><a class="nav-link"
-								href="admin/productos">Administración</a></li>
-							<li class="navbar-text">${sessionScope.usuario}</li>
+								href="usuario/perfil">Perfil</a></li>
+							<li class="navbar-text">${sessionScope.cliente.nombre}</li>
 							<li class="nav-item"><a class="nav-link" href="logout">Cerrar
 									sesión</a></li>
 						</c:when>

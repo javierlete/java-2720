@@ -4,4 +4,6 @@ import com.ipartek.formacion.iparshop.entidades.Cliente;
 
 public interface DaoCliente extends Dao<Cliente> {
 
+	Cliente buscarPorEmail(String email);
+
 }

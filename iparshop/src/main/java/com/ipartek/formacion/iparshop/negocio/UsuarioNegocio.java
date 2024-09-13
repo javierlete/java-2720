@@ -27,4 +27,8 @@ public interface UsuarioNegocio {
 	default Factura pedirFactura(long id) {
 		throw new NegocioException("NO IMPLEMENTADO");
 	}
+
+	default Cliente autenticarCliente(String email, String password) {
+		throw new NegocioException("NO IMPLEMENTADO");
+	}
 }

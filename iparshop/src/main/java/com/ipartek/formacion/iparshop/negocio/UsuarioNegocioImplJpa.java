@@ -99,6 +99,17 @@ public class UsuarioNegocioImplJpa implements UsuarioNegocio {
 		
 		return Fabrica.getDaoFactura().insertar(factura);
 	}
+	
+	@Override
+	public Cliente autenticarCliente(String email, String password) {
+		Cliente cliente = Fabrica.getDaoCliente().buscarPorEmail(email);
+		
+		if(cliente != null && cliente.getPassword().equals(password)) {
+			return cliente;
+		}
+		
+		return null;
+	}
 
 	private String siguienteNumero() {
 		String numero = null;

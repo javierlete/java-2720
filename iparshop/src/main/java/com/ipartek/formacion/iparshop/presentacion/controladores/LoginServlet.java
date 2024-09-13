@@ -2,6 +2,9 @@ package com.ipartek.formacion.iparshop.presentacion.controladores;
 
 import java.io.IOException;
 
+import com.ipartek.formacion.iparshop.Fabrica;
+import com.ipartek.formacion.iparshop.entidades.Cliente;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,8 +23,10 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		if("admin@email.net".equals(email) && "admin".equals(password)) {
-			request.getSession().setAttribute("usuario", email);
+		Cliente cliente = Fabrica.getUsuarioNegocio().autenticarCliente(email, password);
+		
+		if(cliente != null) {
+			request.getSession().setAttribute("cliente", cliente);
 			
 			response.sendRedirect("admin/productos");
 			
