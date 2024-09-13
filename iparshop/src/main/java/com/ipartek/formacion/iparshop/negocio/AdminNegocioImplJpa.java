@@ -1,21 +1,17 @@
 package com.ipartek.formacion.iparshop.negocio;
 
+import static com.ipartek.formacion.biblioteca.Validaciones.*
+;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
 import java.util.TreeMap;
 
 import com.ipartek.formacion.iparshop.Fabrica;
 import com.ipartek.formacion.iparshop.entidades.Producto;
 import com.ipartek.formacion.iparshop.modelos.ProductoForm;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
-
 public class AdminNegocioImplJpa implements AdminNegocio {
-	private static final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	
 	@Override
 	public void agregarProducto(Producto producto) {
@@ -34,16 +30,7 @@ public class AdminNegocioImplJpa implements AdminNegocio {
 	
 	@Override
 	public TreeMap<String, String> validarProducto(Producto producto) {
-		Validator validator = factory.getValidator();
-
-		Set<ConstraintViolation<Producto>> constraintViolations = validator.validate(producto);
-		
-		var errores = new TreeMap<String, String>(); 
-		
-		for(var error: constraintViolations) {
-			errores.put(error.getPropertyPath().toString(), error.getMessage());
-		}
-		return errores;
+		return validar(producto);
 	}
 
 	@Override
@@ -77,15 +64,7 @@ public class AdminNegocioImplJpa implements AdminNegocio {
 	@Override
 	public TreeMap<String, String> validarProducto(ProductoForm productoForm) {
 		
-		Validator validator = factory.getValidator();
-
-		Set<ConstraintViolation<ProductoForm>> constraintViolations = validator.validate(productoForm);
-		
-		var errores = new TreeMap<String, String>(); 
-		
-		for(var error: constraintViolations) {
-			errores.put(error.getPropertyPath().toString(), error.getMessage());
-		}
+		var errores = validar(productoForm);
 		
 		if(errores.size() > 0) {
 			return errores;

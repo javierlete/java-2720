@@ -3,6 +3,7 @@ package com.ipartek.formacion.iparshop.negocio;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeMap;
 
 import com.ipartek.formacion.iparshop.Fabrica;
 import com.ipartek.formacion.iparshop.entidades.Cliente;
@@ -12,17 +13,26 @@ import com.ipartek.formacion.iparshop.entidades.Producto;
 import com.ipartek.formacion.iparshop.modelos.Carrito;
 
 import lombok.extern.java.Log;
+import static com.ipartek.formacion.biblioteca.Validaciones.*;
 
 @Log
 public class UsuarioNegocioImplJpa implements UsuarioNegocio {
 
 	@Override
-	public Cliente guardarCliente(Cliente cliente) {
-		if(cliente.getId() == null) {
-			return Fabrica.getDaoCliente().insertar(cliente);
-		} else {
-			return Fabrica.getDaoCliente().modificar(cliente);
+	public TreeMap<String, String> guardarCliente(Cliente cliente) {
+		var errores = validar(cliente);
+		
+		if(errores.size() > 0) {
+			return errores;
 		}
+		
+		if(cliente.getId() == null) {
+			Fabrica.getDaoCliente().insertar(cliente);
+		} else {
+			Fabrica.getDaoCliente().modificar(cliente);
+		}
+		
+		return errores;
 	}
 
 	@Override

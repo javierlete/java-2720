@@ -20,6 +20,7 @@
 			</div>
 		</div>
 		<button type="submit" class="btn btn-primary">Inicio sesión</button>
+		<a class="btn btn-secondary" href="registro">Registro</a>
 		<div class="text-danger">${errores}</div>
 	</form>
 

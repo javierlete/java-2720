@@ -1,5 +1,7 @@
 package com.ipartek.formacion.iparshop.negocio;
 
+import java.util.TreeMap;
+
 import com.ipartek.formacion.iparshop.entidades.Cliente;
 import com.ipartek.formacion.iparshop.entidades.Factura;
 import com.ipartek.formacion.iparshop.entidades.Producto;
@@ -18,7 +20,7 @@ public interface UsuarioNegocio {
 		throw new NegocioException("NO IMPLEMENTADO");
 	}
 
-	default Cliente guardarCliente(Cliente cliente) {
+	default TreeMap<String, String> guardarCliente(Cliente cliente) {
 		throw new NegocioException("NO IMPLEMENTADO");
 	}
 
