@@ -30,7 +30,7 @@ public class DaoClienteJpa extends DaoJpa implements DaoCliente {
 	public Cliente buscarPorEmail(String email) {
 		return enTransaccion(em -> {
 			try {
-				return em.createQuery("select c from Cliente c join fetch c.facturas f join fetch f.lineas where email=:email", Cliente.class).setParameter("email", email).getSingleResult();
+				return em.createQuery("select c from Cliente c left join fetch c.facturas f left join fetch f.lineas where email=:email", Cliente.class).setParameter("email", email).getSingleResult();
 			} catch (NoResultException e) {
 				return null;
 			}

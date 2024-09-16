@@ -20,7 +20,9 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -74,6 +76,8 @@ public class Cliente {
 	@Column(columnDefinition = "CHAR(9)")
 	private String nif;
 	
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
 	@OneToMany(mappedBy = "cliente")
 	// TODO: BUSCAR ALTERNATIVA Usamos @OnDelete ESPECÍFICO DE HIBERNATE porque es la mejor solución. NO HAY ALTERNATIVA EN EL ESTÁNDAR
 	@OnDelete(action = OnDeleteAction.SET_NULL)
