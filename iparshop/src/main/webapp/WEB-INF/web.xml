@@ -7,4 +7,20 @@
 	<welcome-file-list>
 		<welcome-file>index</welcome-file>
 	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>Jersey Web Application</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<!-- Cambiar el dato siguiente con el nombre de paquete donde vamos a crear las clases de REST -->
+			<param-value>com.ipartek.formacion.iparshop.restjersey</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Jersey Web Application</servlet-name>
+		<!-- Cambiar a la ruta a partir de la aplicación que queremos para los servicios REST controlados por Jersey -->
+		<url-pattern>/apiv2/*</url-pattern>
+	</servlet-mapping>
 </web-app>
