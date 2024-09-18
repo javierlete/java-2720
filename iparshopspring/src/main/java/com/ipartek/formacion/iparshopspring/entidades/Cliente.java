@@ -62,7 +62,7 @@ public class Cliente {
 	@NotNull
 	@NotBlank
 	@Pattern(regexp = "\\d{5}")
-	@Column(name = "codigo-postal", columnDefinition = "CHAR(5)")
+	@Column(columnDefinition = "CHAR(5)")
 	private String codigoPostal;
 
 	@NotNull

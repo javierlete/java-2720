@@ -3,7 +3,6 @@ package com.ipartek.formacion.iparshopspring.entidades;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -46,6 +45,5 @@ public class Producto {
 	private BigDecimal precio;
 	
 	@FutureOrPresent
-	@Column(name = "fecha_caducidad")
 	private LocalDate fechaCaducidad;
 }

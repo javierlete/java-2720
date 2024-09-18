@@ -53,31 +53,28 @@ public class Factura {
 	@NotNull
 	@NotBlank
 	@Size(max = 100)
-	@Column(name = "nombre-cliente")
 	private String nombreCliente;
 
 	@NotNull
 	@NotBlank
 	@Size(max = 200)
-	@Column(name = "direccion-cliente")
 	private String direccionCliente;
 
 	@NotNull
 	@NotBlank
 	@Pattern(regexp = "\\d{5}")
-	@Column(name = "codigo-postal-cliente", columnDefinition = "CHAR(5)")
+	@Column(columnDefinition = "CHAR(5)")
 	private String codigoPostalCliente;
 
 	@NotNull
 	@NotBlank
 	@Size(max = 100)
-	@Column(name = "ciudad-cliente")
 	private String ciudadCliente;
 
 	@NotNull
 	@NotBlank
 	@Pattern(regexp = "[XYZ\\d]\\d{7}[A-Z]")
-	@Column(name = "nif-cliente", columnDefinition = "CHAR(9)")
+	@Column(columnDefinition = "CHAR(9)")
 	private String nifCliente;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
