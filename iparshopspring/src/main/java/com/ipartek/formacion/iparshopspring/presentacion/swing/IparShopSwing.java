@@ -16,12 +16,11 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.ipartek.formacion.iparshopspring.entidades.Producto;
 import com.ipartek.formacion.iparshopspring.servicios.AdminService;
 
-@Component
+// @Component
 public class IparShopSwing extends JFrame {
 
 	@Autowired
