@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>IparShop</title>
+</head>
+<body>
+
+	<h1>IparShop</h1>
+
+	<dl th:object="${producto}">
+		<dt>Nombre</dt>
+		<dd th:text="*{nombre}">Producto 1</dd>
+		<dt>Precio</dt>
+		<dd th:text="${#numbers.formatCurrency(producto.precio)}">1.234,56 €</dd>
+		<dt>Fecha de caducidad</dt>
+		<dd th:text="${#temporals.format(producto.fechaCaducidad, 'LONG')}">01-02-2003</dd>
+	</dl>
+</body>
+</html>
