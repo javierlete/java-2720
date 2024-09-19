@@ -15,4 +15,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Iterable<Producto> listarProductos() {
 		return productoRepo.findAll();
 	}
+
+	@Override
+	public Producto detalleProducto(Long id) {
+		return productoRepo.findById(id).orElse(null);
+	}
+	
+	
 }
