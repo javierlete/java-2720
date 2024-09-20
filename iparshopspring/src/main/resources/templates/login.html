@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>IparShop</title>
+</head>
+<body>
+
+	<h1>Login</h1>
+
+	<form method="post" action="productos.html" th:action="@{/login}">
+		<div>
+			<input placeholder="Email" name="username">
+		</div>
+		<div>
+			<input type="password" placeholder="Contraseña" name="password">
+		</div>
+		<button>Iniciar sesión</button>
+		<div th:if="${param.error}">Usuario o contraseña incorrectos.</div>
+		<div th:if="${param.logout}">Has cerrado la sesión.</div>
+	</form>
+</body>
+</html>

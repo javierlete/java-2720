@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta charset="UTF-8">
 <title>IparShop</title>
@@ -7,6 +7,16 @@
 <body>
 
 	<h1>IparShop</h1>
+
+	<p th:remove="tag" sec:authentication="name">Usuario</p>
+	<p sec:authentication="principal.authorities">USER</p>
+
+	<a href="admin/productos.html" th:href="@{/admin/productos}" sec:authorize="hasRole('ROLE_ADMIN')">Administración</a>
+
+	<a href="login.html" th:href="@{/login}">Iniciar sesión</a>
+	<form action="login.html" th:action="@{/logout}" method="post">
+		<button>Cerrar sesión</button>
+	</form>
 
 	<ul th:each="producto: ${productos}" th:object="${producto}">
 		<li><a href="detalle.html" th:href="@{/detalle(id=${producto.id})}"><span th:text="*{nombre}">Producto 1</span></a>: <span
