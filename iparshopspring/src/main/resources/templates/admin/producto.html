@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>IparShop</title>
+</head>
+<body>
+
+	<h1>IparShop</h1>
+
+	<form method="post" action="productos.html"
+		th:action="@{/admin/producto}" th:object="${producto}" novalidate>
+		<div>
+			<input placeholder="Id" th:field="*{id}">
+			<div th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Error
+				de id</div>
+		</div>
+		<div>
+			<input placeholder="Nombre" th:field="*{nombre}">
+			<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error
+				de nombre</div>
+		</div>
+		<div>
+			<input type="number" step=".01" placeholder="Precio" th:field="*{precio}">
+			<div th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">Error
+				de precio</div>
+		</div>
+		<div>
+			<input type="date" placeholder="Fecha de caducidad" th:field="*{fechaCaducidad}">
+			<div th:if="${#fields.hasErrors('fechaCaducidad')}"
+				th:errors="*{fechaCaducidad}">Error de fecha de caducidad</div>
+		</div>
+		<div>
+			<textarea placeholder="Descripción" th:field="*{descripcion}"></textarea>
+			<div th:if="${#fields.hasErrors('descripcion')}"
+				th:errors="*{descripcion}">Error de fecha de caducidad</div>
+		</div>
+		<button>Guardar</button>
+	</form>
+</body>
+</html>
