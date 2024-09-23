@@ -2,7 +2,7 @@ package com.ipartek.formacion.iparshopspring.servicios;
 
 import com.ipartek.formacion.iparshopspring.entidades.Producto;
 
-public interface AdminService {
+public interface AdminService extends UsuarioService {
 
 	default Producto agregarProducto(Producto producto) {
 		throw new ServicioException("NO IMPLEMENTADO");

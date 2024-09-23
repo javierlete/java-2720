@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ipartek.formacion.iparshopspring.entidades.Producto;
 import com.ipartek.formacion.iparshopspring.servicios.AdminService;
-import com.ipartek.formacion.iparshopspring.servicios.UsuarioService;
 
 import jakarta.validation.Valid;
 
@@ -18,14 +17,11 @@ import jakarta.validation.Valid;
 @RequestMapping("/admin")
 public class AdminController {
 	@Autowired
-	private UsuarioService usuarioService;
-	
-	@Autowired
 	private AdminService adminService;
 	
 	@GetMapping("/productos")
 	public String productos(Model modelo) {
-		modelo.addAttribute("productos", usuarioService.listarProductos());
+		modelo.addAttribute("productos", adminService.listarProductos());
 		return "admin/productos";
 	}
 	
@@ -33,7 +29,7 @@ public class AdminController {
 	public String producto(Long id, Model modelo) {
 		
 		if(id != null) {
-			modelo.addAttribute("producto", usuarioService.detalleProducto(id));
+			modelo.addAttribute("producto", adminService.detalleProducto(id));
 		} else {
 			modelo.addAttribute("producto", new Producto());
 		}

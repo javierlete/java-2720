@@ -7,7 +7,7 @@ import com.ipartek.formacion.iparshopspring.entidades.Producto;
 import com.ipartek.formacion.iparshopspring.repositorios.ProductoRepository;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl extends UsuarioServiceImpl implements AdminService {
 
 	@Autowired
 	private ProductoRepository productoRepo;
