@@ -9,7 +9,7 @@
 	<h1>IparShop</h1>
 
 	<p th:remove="tag" sec:authentication="name">Usuario</p>
-	<p sec:authentication="principal.authorities">USER</p>
+	<p sec:authorize="isAuthenticated()" sec:authentication="principal.authorities">USER</p>
 
 	<a href="admin/productos.html" th:href="@{/admin/productos}" sec:authorize="hasRole('ROLE_ADMIN')">Administración</a>
 
