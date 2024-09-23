@@ -3,11 +3,16 @@ package com.ipartek.formacion.iparshopspring.modelos;
 import java.math.BigDecimal;
 import java.util.TreeMap;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
+
 import com.ipartek.formacion.iparshopspring.entidades.Producto;
 
 import lombok.Builder;
 import lombok.Data;
 
+@Component
+@SessionScope
 public class Carrito {
 
 	private TreeMap<Long, Linea> lineas = new TreeMap<>();

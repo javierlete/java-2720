@@ -20,7 +20,8 @@
 
 	<ul th:each="producto: ${productos}" th:object="${producto}">
 		<li><a href="detalle.html" th:href="@{/detalle(id=${producto.id})}"><span th:text="*{nombre}">Producto 1</span></a>: <span
-			th:text="${#numbers.formatCurrency(producto.precio)}">1.234,56 €</span></li>
+			th:text="${#numbers.formatCurrency(producto.precio)}">1.234,56 €</span>
+			<a href="carrito.html" th:href="@{/carrito(id=${producto.id})}">Añadir a carrito</a></li>
 	</ul>
 
 </body>

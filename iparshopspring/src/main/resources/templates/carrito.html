@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+<meta charset="UTF-8">
+<title>IparShop</title>
+</head>
+<body>
+
+	<h1>Carrito</h1>
+
+	<p th:text="${carrito.lineas}"></p>
+
+	<ul th:each="linea: ${carrito.lineas}" th:object="${linea}">
+		<li><a href="detalle.html" th:href="@{/detalle(id=${linea.producto.id})}"><span th:text="*{producto.nombre}">Producto 1</span></a>: <span
+			th:text="${#numbers.formatCurrency(linea.producto.precio)}">1.234,56 €</span>
+			<span th:text="*{cantidad}">5</span></li>
+	</ul>
+
+</body>
+</html>
