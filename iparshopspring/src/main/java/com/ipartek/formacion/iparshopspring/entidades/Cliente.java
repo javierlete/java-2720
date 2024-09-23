@@ -51,6 +51,13 @@ public class Cliente {
 	
 	@NotNull
 	@NotBlank
+	@Size(max = 20)
+	@Pattern(regexp = "^[A-Z]+$")
+	@Builder.Default
+	private String rol = "USER";
+	
+	@NotNull
+	@NotBlank
 	@Size(max = 100)
 	private String nombre;
 
