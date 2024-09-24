@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{_global :: global(~{::title}, ~{::main})}">
+<title>IparTube: página principal</title>
+<main class="container">
+	<div class="row row-cols-1 row-cols-md-3 g-4">
+		<div th:each="i : ${#numbers.sequence(1, 10)}" class="col">
+			<div class="card h-100">
+				<img th:src="${'https://picsum.photos/400/300?' + i}" src="https://picsum.photos/400/300" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Título</h5>
+					<p class="card-text">Descripción</p>
+				</div>
+				<div class="card-footer">
+					<small class="text-body-secondary">2024-01-02</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+</html>
