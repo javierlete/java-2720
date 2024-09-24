@@ -24,8 +24,8 @@
 				<ul class="navbar-nav me-auto mb-2 mb-sm-0">
 					<li class="nav-item"><a class="nav-link" href="#">Principal</a></li>
 				</ul>
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Buscar video"
+				<form th:action="@{/}" method="get" class="d-flex" role="search">
+					<input class="form-control me-2" name="nombre" type="search" placeholder="Buscar video"
 						aria-label="Search">
 					<button class="btn btn-outline-light" type="submit">Buscar</button>
 				</form>
