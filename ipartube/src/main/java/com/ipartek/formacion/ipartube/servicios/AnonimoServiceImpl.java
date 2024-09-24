@@ -16,4 +16,9 @@ public class AnonimoServiceImpl implements AnonimoService {
 		return videoRepository.findAll();
 	}
 
+	@Override
+	public Iterable<Video> buscarVideo(String nombre) {
+		return videoRepository.findByNombreContaining(nombre);
+	}
+
 }
