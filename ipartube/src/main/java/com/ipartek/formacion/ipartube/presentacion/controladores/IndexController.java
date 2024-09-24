@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ipartek.formacion.ipartube.entidades.Video;
 import com.ipartek.formacion.ipartube.servicios.AnonimoService;
 
 @Controller
@@ -15,8 +16,16 @@ public class IndexController {
 	private AnonimoService anonimoService;
 	
 	@GetMapping
-	public String index(Model modelo) {
-		modelo.addAttribute("videos", anonimoService.videosPrincipal());
+	public String index(Model modelo, String nombre) {
+		Iterable<Video> videos;
+		
+		if(nombre == null) {
+			videos = anonimoService.videosPrincipal();
+		} else {
+			videos = anonimoService.buscarVideo(nombre);
+		}
+		
+		modelo.addAttribute("videos", videos);
 		return "index";
 	}
 }
