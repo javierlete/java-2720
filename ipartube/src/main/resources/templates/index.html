@@ -4,15 +4,15 @@
 <title>IparTube: página principal</title>
 <main class="container">
 	<div class="row row-cols-1 row-cols-md-3 g-4">
-		<div th:each="i : ${#numbers.sequence(1, 10)}" class="col">
+		<div th:each="video : ${videos}" th:object="${video}" class="col">
 			<div class="card h-100">
-				<img th:src="${'https://picsum.photos/400/300?' + i}" src="https://picsum.photos/400/300" class="card-img-top" alt="...">
+				<iframe th:src="*{url}" src="https://picsum.photos/400/300" class="card-img-top"></iframe>
 				<div class="card-body">
-					<h5 class="card-title">Título</h5>
-					<p class="card-text">Descripción</p>
+					<h5 th:text="*{nombre}" class="card-title">Título</h5>
+					<p th:text="*{descripcion}" class="card-text">Descripción</p>
 				</div>
 				<div class="card-footer">
-					<small class="text-body-secondary">2024-01-02</small>
+					<small th:text="*{fecha}" class="text-body-secondary">2024-01-02</small>
 				</div>
 			</div>
 		</div>
