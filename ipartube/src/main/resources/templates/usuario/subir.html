@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{_global :: global(~{},~{::title},~{::main})}">
+
+<title>IparTube: Subir videos</title>
+
+<main class="container">
+	<h1>Subir videos</h1>
+
+	<form th:action="@{/usuario/subir}" method="post" enctype="multipart/form-data" th:object="${video}">
+		<input type="hidden" th:field="*{fecha}">
+		<input type="hidden" th:field="*{url}">
+		
+		<div class="row mb-2">
+			<label class="col-sm-2 col-form-label" for="fecha">Fecha</label>
+			<div class="col-sm">
+				<input class="form-control" th:classappend="${#fields.hasErrors('fecha')}? 'is-invalid'" type="datetime-local" readonly th:field="*{fecha}">
+				<div class="invalid-feedback" th:errors="*{fecha}">
+					La fecha debe ser de hoy o pasada
+				</div>
+			</div>
+		</div>
+		<div class="row mb-2">
+			<label class="col-sm-2 col-form-label" for="nombre">Nombre</label>
+			<div class="col-sm">
+				<input class="form-control" th:classappend="${#fields.hasErrors('nombre')}? 'is-invalid'" type="text" th:field="*{nombre}">
+				<div class="invalid-feedback" th:errors="*{nombre}">
+					El nombre es obligatorio y no puede tener más de 100 caracteres
+				</div>
+			</div>
+		</div>
+		<div class="row mb-2">
+			<label class="col-sm-2 col-form-label" for="descripcion">Descripción</label>
+			<div class="col-sm">
+				<input class="form-control" th:classappend="${#fields.hasErrors('descripcion')}? 'is-invalid'" type="text" th:field="*{descripcion}">
+				<div class="invalid-feedback" th:errors="*{descripcion}">
+					La descripción es obligatoria no puede tener más de 2000 caracteres
+				</div>
+			</div>
+		</div>
+		<div class="row mb-2">
+			<label class="col-sm-2 col-form-label" for="fichero">Fichero</label>
+			<div class="col-sm">
+				<input name="fichero" class="form-control mb-3" th:classappend="${errorFichero != null} ? 'is-invalid'" type="file">
+				<div class="invalid-feedback" th:text="${errorFichero}">
+					Debes de especificar un fichero
+				</div>
+			</div>
+		</div>
+		<button class="btn btn-primary">Subir</button>
+	</form>
+</main>
+</html>

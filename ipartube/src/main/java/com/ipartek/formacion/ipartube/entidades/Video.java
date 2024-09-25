@@ -2,7 +2,7 @@ package com.ipartek.formacion.ipartube.entidades;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.validator.constraints.URL;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +34,7 @@ public class Video {
 	@NotNull
 	@Builder.Default
 	@PastOrPresent
+	@DateTimeFormat(pattern = "yyyy-MM-dd' 'HH:mm")
 	private LocalDateTime fecha = LocalDateTime.now();
 	
 	@NotNull
@@ -47,7 +48,6 @@ public class Video {
 	private String descripcion;
 	
 	@NotNull
-	@URL
 	@Size(max = 256)
 	private String url;
 }

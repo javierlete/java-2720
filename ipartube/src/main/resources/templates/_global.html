@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" th:fragment="global (estilos, titulo, contenido)" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" th:fragment="global (estilos, titulo, contenido)" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,13 +25,20 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-sm-0">
-					<li class="nav-item"><a class="nav-link" href="#">Principal</a></li>
+					<li class="nav-item"><a class="nav-link" href="#" th:href="@{/}">Principal</a></li>
 				</ul>
 				<form th:action="@{/}" method="get" class="d-flex" role="search">
 					<input class="form-control me-2" name="nombre" type="search" placeholder="Buscar video"
 						aria-label="Search">
 					<button class="btn btn-outline-light" type="submit">Buscar</button>
 				</form>
+				<ul class="navbar-nav ms-auto mb-2 mb-sm-0">
+					<li sec:authorize="hasRole('ROLE_USER')" class="nav-item"><a class="nav-link" href="usuario/subir.html" th:href="@{/usuario/subir}">Subir videos</a></li>
+					<li class="navbar-text" sec:authorize="isAuthenticated()" sec:authentication="name">USUARIO</li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="usuario/subir.html" th:href="@{/logout}">Cerrar sesión</a></li>
+					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link" href="usuario/subir.html" th:href="@{/login}">Iniciar sesión</a></li>
+				</ul>
+				
 			</div>
 		</div>
 	</nav>
