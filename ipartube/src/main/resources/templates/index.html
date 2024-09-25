@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{_global :: global(~{::title}, ~{::main})}">
+	th:replace="~{_global :: global(~{::link},~{::title},~{::main})}">
+
 <title>IparTube: página principal</title>
+
+<link rel="stylesheet" href="css/index.css" th:href="@{/css/index.css}">
+<!-- /* Funciona con varios link */ -->
+
 <main class="container">
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<div th:each="video : ${videos}" th:object="${video}" class="col">
 			<div class="card h-100">
-				<iframe th:src="*{url}" src="https://picsum.photos/400/300" class="card-img-top"></iframe>
+				<iframe th:src="*{url}" src="https://picsum.photos/400/300"
+					class="card-img-top"></iframe>
 				<div class="card-body">
 					<h5 th:text="*{nombre}" class="card-title">Título</h5>
 					<p th:text="*{descripcion}" class="card-text">Descripción</p>

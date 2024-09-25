@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" th:fragment="global (titulo, contenido)" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" th:fragment="global (estilos, titulo, contenido)" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +9,9 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
+
+<th:block th:replace="${estilos}">
+
 </head>
 <body>
 	<nav class="mb-5 navbar navbar-expand-sm bg-dark" data-bs-theme="dark">
